@@ -11,5 +11,4 @@ class Expense(models.Model):
     E_id = models.IntegerField(primary_key=True)
 
     def __str__(self):
-        return "id: %d | title: %s | budget: %d | date:" % (self.E_id,self.title, self.budget) + " " + self.date
-
+        return "id: %d | title: %s | budget: %d | date:" % (self.E_id, self.title, self.budget) + " " + self.date
