@@ -9,6 +9,7 @@ django = "*"
 [dev-packages]
 flake8 = "*" 
 pytest-django = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.9"
