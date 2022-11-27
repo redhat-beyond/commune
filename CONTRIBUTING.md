@@ -70,7 +70,6 @@ Must be a list of measurable achievements that indicate the work in the issue is
 
 ## ERD
 
-
 ![ERD](https://user-images.githubusercontent.com/74178515/204143707-970216f5-e382-47d1-ab2e-209aa7aaa18b.png)
 
 ## DFD
