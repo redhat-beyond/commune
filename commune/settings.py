@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'commune_app.apps.CommuneAppConfig',
+    "phonenumber_field",
 ]
+
+AUTH_USER_MODEL = 'commune_app.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
