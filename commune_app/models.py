@@ -15,13 +15,14 @@ class User(AbstractUser):
         user = Expense(first_name=first_name, last_name=last_name, email=email, phone_number=phone_number)
         user.save()
         return user
-    
+
+
 class Expense(models.Model):
     title = models.CharField(max_length=50)
     budget = models.IntegerField()
     date = models.DateTimeField(default=timezone.now)
     assign = models.ForeignKey(User, on_delete=models.CASCADE)
-    
+
     @staticmethod
     def create_expense(title, budget, date, assign):
         expense = Expense(title=title, budget=budget, date=date, assign=assign)
