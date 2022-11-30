@@ -5,24 +5,15 @@ import pytest
 class TestExpenseModel:
     @pytest.mark.django_db
     def test_new_expense(self):
-        expense = Expense(title="buying some food",
-            budget="150", date="2011-09-01T13:20:30+03:00",
-            assign=User(first_name="Faez", last_name="Zangariya",
-            email="faezzangariyacs@gmail.com", phone_number="+972523324193"))
+        expense = Expense(title="buying some food", budget="150", date="2011-09-01T13:20:30+03:00", assign=User(first_name="Faez", last_name="Zangariya", email="faezzangariyacs@gmail.com", phone_number="+972523324193"))
         assert expense.title == "buying some food"
         assert expense.budget == "150"
         assert expense.date == "2011-09-01T13:20:30+03:00"
         assert expense.assign.first_name == "Faez"
-        
+
     @pytest.mark.django_db
     def test_create_expense(self):
-        expense = Expense.create_expense(title="Laundry",
-            budget="200",
-            date="2011-09-01T13:20:30+03:00",
-            assign=User.create_user(first_name="Ron",
-                last_name="Tur",
-                email="rontur@gmail.com",
-                phone_number="+972523324193"))
+        expense = Expense.create_expense(title="Laundry", budget="200", date="2011-09-01T13:20:30+03:00", assign=User.create_user(first_name="Ron", last_name="Tur", email="rontur@gmail.com", phone_number="+972523324193"))
         assert expense.title == "Laundry"
         assert expense.budget == "200"
         assert expense.date == "2011-09-01T13:20:30+03:00"
@@ -40,5 +31,5 @@ class TestExpenseModel:
         assert Expense.get_expense_by_title("X").budget == 100
         assert Expense.get_expense_by_title("Y").budget == 200
         assert Expense.get_expense_by_title("Z").budget == 300
-        
+
         
