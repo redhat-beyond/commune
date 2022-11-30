@@ -1,6 +1,5 @@
 [flake8]
-max-line-length = 120
+max-line-length = 300
 per-file-ignores =
     # line too long
     commune_app/migrations/0001_initial.py: E501
-    commune_app/migrations/tests/test_Expense_model.py: E501
