@@ -4,29 +4,29 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 
 
+phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number format: '+999999999'")
+
+
 class User(AbstractUser):
-    id = models.IntegerField(unique=True, primary_key=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=250, unique=True)
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number format: '+999999999'")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
 
     @staticmethod
-    def create_user(id, first_name, last_name, email, phone_number):
+    def create_user(first_name, last_name, email, phone_number):
         """"
         Method creates a new user
-        param id: user's id
         param first_name: user's first name
         param last_name: user's last name
         param email: user's last email
         param phone_number: user's phone number
         """
         try:
-            user = User.objects.get(id=id)
+            user = User.objects.get(email=email)
             return user
         except User.DoesNotExist:
-            user = User(id=id, first_name=first_name, last_name=last_name, email=email, phone_number=phone_number)
+            user = User(first_name=first_name, last_name=last_name, email=email, phone_number=phone_number)
             user.save()
             return user
 
@@ -61,11 +61,3 @@ class Expense(models.Model):
         except Expense.DoesNotExist:
             return None
         return expense
-
-    @staticmethod
-    def get_AllExpenses_by_user(title):
-        try:
-            expenses = Expense.objects.all().filter(title=title).order_by('date').first()
-        except Expense.DoesNotExist:
-            return None
-        return expenses
