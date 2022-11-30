@@ -44,21 +44,15 @@ class Migration(migrations.Migration):
                 ('first_name', models.CharField(max_length=50)),
                 ('last_name', models.CharField(max_length=50)),
                 ('email', models.EmailField(max_length=250, unique=True)),
-<<<<<<< HEAD
-                ('phone_number', models.CharField(blank=True, max_length=17, validators=[django.core.validators.RegexValidator(message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.", regex='^\\+?1?\\d{9,15}$')])),
-                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.permission', verbose_name='user permissions')),
-=======
-                ('phone_number', models.IntegerField()),
-                ('groups', models.ManyToManyField(
-                    blank=True,
-                    help_text='The groups this user belongs to.',
+                ('phone_number', models.CharField(blank=True, max_length=17,
+                        validators=[django.core.validators.RegexValidator(
+                            message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.",
+                        regex='^\\+?1?\\d{9,15}$')])),
+                ('groups', models.ManyToManyField(blank=True,
+                    help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
                     related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(
-                    blank=True, help_text='Specific permissions for this user.',
-                    related_name='user_set', related_query_name='user', to='auth.permission',
-                    verbose_name='user permissions')),
->>>>>>> 08879061b2e1fbfa652a856a3377819d2d26642e
+                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.',
+                    related_name='user_set', related_query_name='user', to='auth.permission', verbose_name='user permissions')),
             ],
             options={
                 'verbose_name': 'user',
