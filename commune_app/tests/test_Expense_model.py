@@ -31,5 +31,3 @@ class TestExpenseModel:
         assert Expense.get_expense_by_title("X").budget == 100
         assert Expense.get_expense_by_title("Y").budget == 200
         assert Expense.get_expense_by_title("Z").budget == 300
-
-        
