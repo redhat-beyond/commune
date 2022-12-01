@@ -31,6 +31,9 @@ class Expense(models.Model):
         return expense
 
 class Commune(Models.Model):
+    """
+    Represents the users, expenses, chores & balance of the commune.
+    """
     id = models.IntegerField(unique=True, primary_key=True)
     users = models.ManyToManyField(User)
     expenses = models.ManyToManyField(Expense)
