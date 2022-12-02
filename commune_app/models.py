@@ -16,16 +16,17 @@ class User(AbstractUser):
 
 
 class Expense(models.Model):
+    id = models.IntegerField(unique=True, primary_key=True)
     title = models.CharField(max_length=50)
     budget = models.IntegerField()
     date = models.DateTimeField(default=timezone.now)
     assign = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    # returns an expense matching the title given as paramater
+    # returns an expense by primary key (id)
     @staticmethod
-    def get_expense_by_title(title):
+    def get_expense_by_pk(pk):
         try:
-            expense = Expense.objects.filter(title=title).order_by('date').first()
+            expense = Expense.objects.filter(id=pk).order_by('date').first()
         except Expense.DoesNotExist:
             return None
         return expense
