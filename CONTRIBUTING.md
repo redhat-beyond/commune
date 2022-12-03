@@ -1,4 +1,4 @@
-#Contribution Guide
+# Contribution Guide
 
 ## Getting Started 
 
@@ -67,3 +67,4 @@ Must be a list of measurable achievements that indicate the work in the issue is
 4. Don't just hope for the code to work, Check it yourself!
 5. Be strict about temporary code
 6. Visualize the bigger picture
+
