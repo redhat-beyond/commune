@@ -60,4 +60,3 @@ class TestUser:
             )
         new_user.save()
         assert new_user in User.objects.all()
-        
