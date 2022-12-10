@@ -30,7 +30,7 @@ class User(AbstractUser):
         pass
 
     def add_decision(args):
-        pass 
+        pass
 
     def execute_chore():
         pass
