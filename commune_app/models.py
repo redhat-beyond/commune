@@ -25,3 +25,12 @@ class User(AbstractUser):
     validator for email
     '''
     email = models.EmailField(unique=True, validators=[validate_email_addr])
+
+    def vote_on_decision(decision_id):
+        pass
+
+    def add_decision(args):
+        pass 
+
+    def execute_chore():
+        pass
