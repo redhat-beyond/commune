@@ -18,6 +18,17 @@ LAST_NAME1 = "class"
 EMAIL1 = "userclass@gmail.com"
 ID1 = 209461581
 
+USER_NAME = "use"
+PASSWORD = "123456789"
+FIRST_NAME = "USE"
+LAST_NAME = "MODEL"
+EMAIL = "userclass@gmail.com"
+ID = 102030405
+
+LONG_FIELD = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+LONG_FIELD += "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+NOT_EMAIL = "user.com@[]"
+
 
 @pytest.fixture
 def user0():
@@ -56,7 +67,25 @@ class TestUser:
     def test_create_user(self):
         new_user = User(
             username=USER_NAME1, password=PASSWORD1, id=ID1,
-            first_name=FIRST_NAME1, last_name=LAST_NAME1, email=EMAIL1
-            )
+            first_name=FIRST_NAME1, last_name=LAST_NAME1, email=EMAIL1)
         new_user.save()
         assert new_user in User.objects.all()
+
+    @pytest.mark.parametrize("username, password, first_name, last_name, email, id", [
+        (USER_NAME, PASSWORD, LONG_FIELD, LAST_NAME, EMAIL, ID),       # long first name
+        (USER_NAME, PASSWORD, FIRST_NAME, LONG_FIELD, EMAIL, ID),      # long long name
+        (USER_NAME, PASSWORD, FIRST_NAME, LAST_NAME, NOT_EMAIL, ID),   # not valid email
+        (USER_NAME0, PASSWORD, FIRST_NAME, LAST_NAME, EMAIL, ID),      # user name taken
+
+        ],
+    )
+    def test_invalid_user_values(self, username, password, first_name, last_name, email, id, my_user0):
+        with pytest.raises(Exception):
+            user = User(
+                username=username,
+                password=password,
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                id=id)
+            user.save()

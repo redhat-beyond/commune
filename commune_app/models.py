@@ -26,6 +26,14 @@ class User(AbstractUser):
     '''
     email = models.EmailField(unique=True, validators=[validate_email_addr])
 
+    def clean(self) -> None:
+        validate_email(self.email)
+        return super().clean()
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
+
     def vote_on_decision(decision_id):
         pass
 
