@@ -1,5 +1,5 @@
 import pytest
-from commune_app.models import User
+from commune_app.models.users import User
 
 
 USER_NAME0 = "user0"
@@ -25,8 +25,7 @@ LAST_NAME = "MODEL"
 EMAIL = "userclass@gmail.com"
 ID = 102030405
 
-LONG_FIELD = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-LONG_FIELD += "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+LONG_FIELD = "A" * 151
 NOT_EMAIL = "user.com@[]"
 
 
@@ -34,7 +33,7 @@ NOT_EMAIL = "user.com@[]"
 def user0():
     return User(
         username=USER_NAME0, password=PASSWORD0, id=ID0, first_name=FIRST_NAME0, last_name=LAST_NAME0, email=EMAIL0
-        )
+    )
 
 
 @pytest.fixture
@@ -67,7 +66,8 @@ class TestUser:
     def test_create_user(self):
         new_user = User(
             username=USER_NAME1, password=PASSWORD1, id=ID1,
-            first_name=FIRST_NAME1, last_name=LAST_NAME1, email=EMAIL1)
+            first_name=FIRST_NAME1, last_name=LAST_NAME1, email=EMAIL1
+        )
         new_user.save()
         assert new_user in User.objects.all()
 
@@ -87,5 +87,6 @@ class TestUser:
                 first_name=first_name,
                 last_name=last_name,
                 email=email,
-                id=id)
+                id=id
+            )
             user.save()
