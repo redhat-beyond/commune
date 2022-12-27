@@ -13,7 +13,7 @@ def validate_email_addr(email):
 
 class User(AbstractUser):
     '''
-    we use the field of Abstructuser(the required):
+    Inherits fields from AbstractUser:
     id
     username
     password
