@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'commune_app.apps.CommuneAppConfig',
 ]
+
+AUTH_USER_MODEL = 'commune_app.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
