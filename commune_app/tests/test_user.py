@@ -1,5 +1,5 @@
 import pytest
-from commune_app.models.users import User
+from commune_app.all_models.users import User
 
 
 USER_NAME0 = "user0"
