@@ -1,8 +1,6 @@
 from django.db import models
-from sqlalchemy import false, true
-from . import Chore
-from . import users
-from . import Commune
+from .Chore import Chore
+from .users import User
 
 
 class Vote(models.Model):
@@ -15,9 +13,9 @@ class Vote(models.Model):
     @staticmethod
     def create_new_vote(Vid, VotingUser, VotedChore, VoteBool):
         Vote(Vid, VotingUser, VotedChore, VoteBool).save()
-        if len(Vote.filter(chore=VotingUser)) == len(Commune.members):
-            num_of_yes_votes = Vote.filter(chore=VotedChore, approve=true)
-            num_of_no_votes = Vote.filter(chore=VotedChore, approve=false)
+        if len(Vote.filter(chore=VotingUser)) == len():
+            num_of_yes_votes = Vote.filter(chore=VotedChore, approve=1)
+            num_of_no_votes = Vote.filter(chore=VotedChore, approve=0)
             if num_of_yes_votes > num_of_no_votes:
                 chore = Chore.get_chore(VotedChore)
-                chore.passed = true
+                chore.passed = 1
