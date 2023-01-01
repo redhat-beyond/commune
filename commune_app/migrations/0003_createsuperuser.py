@@ -11,7 +11,7 @@ def create_superuser(apps, schema_editor):
         superuser.is_staff = True
         superuser.username = 'admin'
         superuser.email = 'admin@gmail.com'
-        superuser.set_password('adminPassword')
+        superuser.set_password('adminpassword')
         superuser.save()
 
 
