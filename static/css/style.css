@@ -1,165 +1,68 @@
 /*  import google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
+/*general styling*/
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
 }
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-
 html{
     scroll-behavior: smooth;
-    box-sizing: border-box;
 }
-*, *:before, *:after {
-    box-sizing: inherit;
-  }
-/* home section styling */
-.home{
-    color: black;
+body, html {
+    height: 100%;
+}
+
+/* Nav Bar */
+.navbar {
+    background: #111;
+    font-family: 'Oswald', sans-serif;
+    font-size:24px;
+    font-weight:700 ;
+    letter-spacing: .1rem;
+}
+.nav-item {
+    padding:.7rem; /*8px*/
+}
+.logo{
+    width:150px;
+    height:100px;
+}
+.nav-link:hover{
+    color:red !important;
+}
+/* The hero image */
+.hero-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url("../images/community.jpg");
+    font-family: 'Oswald', sans-serif;
+    height: 70%;
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
-    background-color: gainsboro;
-    background-attachment: fixed;
-    font-family: 'Ubuntu', sans-serif;
+    position: relative;
 }
-.home h1{
-    margin:40px;
-    padding:40px;
+/* Place text in the middle of the image */
+.hero-text {
     text-align: center;
-    font-size: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 30px;
+    transform: translate(-50%, -50%);
+    color: white;
 }
-
-/*about us page*/
-
-.img-class{
-    width: 100%;
+.hero-text h1{
+    font-size: 70px;
+    font-weight: 100;
 }
-
-.img-class img{
-    width:100%;
-    border-radius: 50%;
-    box-shadow: 0 0 12px white;
-}
-
-.ab-container{
-    height: 70vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.about-us-h{
-    font-size: 50px;
-    color:#888;
-    padding:20px;
-    margin:20px;
-    justify-content: center;
-    text-align: center;
-}
-
-.about-us-p{
-    font-size: 20px;
-    color:#888;
-    padding:40px;
-    margin:20px;
-    justify-content: center;
-    text-align: center;
-}
-
-/*my team page*/
-.container{
-    text-align: center;
-    background-color: white;
-}
-
-.header{
-    padding-top: 30px;
-    color:#888;
-    margin:auto;
-    font-size: 20px;
-    line-height: 50px;
-}
-
-.sub-container{
-    max-width: 1200px;
-    margin: auto;
-    padding: 30px 0;
-    display: flex;
-    flex-wrap:wrap;
-    justify-content: center;
-}
-
-.teams{
-    margin: 10px;
-    padding: 22px;
-    max-width: 30%;
-    cursor: pointer;
-    transition: 0.4s;
-    box-sizing: border-box;
-}
-.teams:hover{
-    background: gainsboro;
-}
-
-.teams img{
-    width: 200px;
-    height: 200px;
-
-}
-
-.name{
-    padding: 12px;
-    font-weight: bold;
-    font-size: 16px;
-    text-transform: uppercase;
-}
-
-.design{
-    font-style:italic;
-    color: #888;
-}
-
-.about{
-    margin: 20px 0;
-    font-weight: lighter;
-    color:#4e4e4e;
-}
-
-.social-links{
-    margin:14px;
-}
-
-.social-links a{
-    display: inline-block;
-    height: 30px;
-    width: 30px;
-    transition: .4s;
-}
-
-.social-links a:hover{
-    transform:scale(1.5);
-}
-
-.social-links a i{
-    color: black;
-}
-
-
-/* footer section styling*/
+/* footer section styling */
 footer{
     background: #111;
     padding: 15px 23px;
     color: #fff;
     text-align: center;
-}
-footer span a{
-    color: crimson;
-    text-decoration: none;
-}
-footer span a:hover{
-    text-decoration: underline;
 }

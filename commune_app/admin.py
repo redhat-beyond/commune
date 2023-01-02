@@ -1,4 +1,6 @@
 from django.contrib import admin
-from .all_models.users import User
+from .models import Chore, User
 
+
+admin.site.register(Chore)
 admin.site.register(User)
