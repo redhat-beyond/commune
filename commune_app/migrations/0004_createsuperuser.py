@@ -5,20 +5,17 @@ from commune_app.all_models.users import User
 
 def create_superuser(apps, schema_editor):
     with transaction.atomic():
-        superuser = User()
-        superuser.is_active = True
-        superuser.is_superuser = True
-        superuser.is_staff = True
-        superuser.username = 'admin'
-        superuser.email = 'admin@gmail.com'
-        superuser.set_password('adminpassword')
+        superuser = User(
+            is_active=True, is_superuser=True, is_staff=True, username='admin', email='admin@gmail.com'
+            )
+        superuser.set_password('adminPassword')
         superuser.save()
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('commune_app', '0002_add_user_test_data'),
+        ('commune_app', '0003_alter_user_first_name_alter_user_groups_and_more'),
     ]
 
     operations = [
