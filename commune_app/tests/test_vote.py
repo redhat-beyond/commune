@@ -36,39 +36,61 @@ CHORE_BUDGET = 30
 CHORE_DESCRIPTION = "Clean the Dishes"
 CHORE_ASSIGN = "Elias"
 CHORE_PASSED = False
+CHORE_COMPLETED = False
 
 
 @pytest.fixture
 def user0():
-    return User(
-        username=USER_NAME0, password=PASSWORD0, id=ID0, first_name=FIRST_NAME0, last_name=LAST_NAME0, email=EMAIL0
-    )
+    user0 = User(
+        username=USER_NAME0,
+        password=PASSWORD0,
+        id=ID0,
+        first_name=FIRST_NAME0,
+        last_name=LAST_NAME0,
+        email=EMAIL0)
+    user0.save()
+    return user0
 
 
 @pytest.fixture
 def user1():
-    return User(
-        username=USER_NAME1, password=PASSWORD1, id=ID1, first_name=FIRST_NAME1, last_name=LAST_NAME1, email=EMAIL1
-    )
+    user1 = User(
+        username=USER_NAME1,
+        password=PASSWORD1,
+        id=ID1,
+        first_name=FIRST_NAME1,
+        last_name=LAST_NAME1,
+        email=EMAIL1)
+    user1.save()
+    return user1
 
 
 @pytest.fixture
 def user2():
-    return User(
-        username=USER_NAME, password=PASSWORD, id=ID, first_name=FIRST_NAME, last_name=LAST_NAME, email=EMAIL
-    )
+    user2 = User(
+        username=USER_NAME,
+        password=PASSWORD,
+        id=ID,
+        first_name=FIRST_NAME,
+        last_name=LAST_NAME,
+        email=EMAIL)
+    user2.save()
+    return user2
 
 
 @pytest.fixture
 def chore0(user0):
-    return Chore(
+    chore0 = Chore(
         title=CHORE_TITLE,
         date=CHORE_DATE,
         budget=CHORE_BUDGET,
         description=CHORE_DESCRIPTION,
         assign_to=user0,
-        passed=CHORE_PASSED
+        passed=CHORE_PASSED,
+        completed=CHORE_COMPLETED
     )
+    chore0.save()
+    return chore0
 
 
 @pytest.fixture
@@ -81,14 +103,9 @@ class TestVote:
     def test_new_vote(self, vote0, user0, chore0):
         assert vote0.user == user0
         assert vote0.chore == chore0
-        assert vote0.approve == 0
+        assert not vote0.approve
 
     def test_passing_chore(self, user0, user1, user2, chore0):
-        chore0.save()
-        user0.save()
-        user1.save()
-        user2.save()
-
         # first vote
         Vote.create_new_vote(user1, chore0, True)
 
@@ -97,8 +114,7 @@ class TestVote:
         assert len(Vote.objects.filter(chore=chore0, approve=False)) == 0
 
         # only 1 user voted, so no change in passed
-        passedInt = Chore.objects.filter(title=CHORE_TITLE).first().passed
-        assert passedInt == 0
+        assert not Chore.objects.filter(title=CHORE_TITLE).first().passed
 
         # second vote
         Vote.create_new_vote(user2, chore0, False)
@@ -108,7 +124,7 @@ class TestVote:
         assert len(Vote.objects.filter(chore=chore0, approve=False)) == 1
 
         # only 2 users voted, so no change in passed
-        assert Chore.objects.filter(title=CHORE_TITLE).first().passed == 0
+        assert not Chore.objects.filter(title=CHORE_TITLE).first().passed
 
         # third vote
         Vote.create_new_vote(user0, chore0, True)
@@ -118,5 +134,4 @@ class TestVote:
         assert len(Vote.objects.filter(chore=chore0, approve=False)) == 1
 
         # all 3 users have voted, 2 votes yes and 1 voted no, passed should be true now
-        passedInt = Chore.objects.filter(title=CHORE_TITLE).first().passed
-        assert passedInt == 1
+        assert Chore.objects.filter(title=CHORE_TITLE).first().passed
