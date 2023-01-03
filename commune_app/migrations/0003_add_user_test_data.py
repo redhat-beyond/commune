@@ -4,7 +4,7 @@ from django.db import migrations, transaction
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('commune_app', '0001_initial'),
+        ('commune_app', '0002_alter_user_first_name_alter_user_groups_and_more'),
     ]
 
     def generate_user_test_data(apps, schema_editor):
