@@ -1,25 +1,16 @@
 from django.db import models
-from .users import User
-from .chores import Chore
-from .votes import Vote
 
 
 class Commune(models.Model):
     """
-      add something
+      commune object hold his:
+      name
+      description on the commune
+      money in the wallet
     """
-    id = models.IntegerField(unique=True, primary_key=True, auto_created=True)
-    users = models.ManyToManyField(User)
-    votes = models.ForeignKey(Vote, on_delete=models.CASCADE)
-    chores = models.ForeignKey(Chore, on_delete=models.CASCADE)
+    name = models.TextField(max_length=150, unique=True)
+    description = models.TextField(blank=True)
+    wallet = models.IntegerField(default=0)
 
-    wallet = models.IntegerField()
-    name = models.TextField()
-
-# @staticmethod
-# def fetch_commune_stats(id):
-#     try:
-#         commune = commune.objects.filter(id=id)  //dont know what try in function
-#     except Commune.DoesNotExist:
-#         return None
-#     return commune
+    def set_wallet(budget):
+        pass
