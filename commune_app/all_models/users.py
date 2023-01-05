@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-from .communes import Commune
+from commune_app.all_models.communes import Commune
 
 
 def validate_email_addr(email):
@@ -27,7 +27,7 @@ class User(AbstractUser):
     the communes that the user participates in
     '''
     email = models.EmailField(unique=True, validators=[validate_email_addr])
-    Commune = models.ForeignKey(Commune, on_delete=models.CASCADE, null=True, blank=True)
+    commune_id = models.ForeignKey(Commune, on_delete=models.CASCADE, null=True, blank=True)
 
     def clean(self) -> None:
         validate_email(self.email)

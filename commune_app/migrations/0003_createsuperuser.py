@@ -15,7 +15,7 @@ def create_superuser(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('commune_app', '0003_add_user_test_data'),
+        ('commune_app', '0002_add_user_test_data'),
     ]
 
     operations = [
