@@ -1,5 +1,6 @@
 from django.db import models
 from commune_app.all_models.users import User
+from .communes import Commune
 
 
 class Chore(models.Model):
@@ -10,6 +11,7 @@ class Chore(models.Model):
     assign_to = models.ForeignKey(User, on_delete=models.CASCADE)
     passed = models.BooleanField()
     completed = models.BooleanField()
+    Commune = models.ForeignKey(Commune, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
