@@ -33,16 +33,19 @@
     </nav>
     <main>
         <div class="container-fluid text-center p-5">
-            <h3>CHORES</h3>
+            <h1 style="color:brown">CHORES</h1>
         </div>
         <div class="container">
             <div class="row">
                 {% block content %}
-                    {% for chore in Chores %}
-                        <h3>{{chore.title}} - Created at : {{chore.date}}</h3>
-                        <p>This is assigned to :{{chore.assign}}</p>
+                    {% for chore in chores %}
+                        <h3 style="color:brown">{{chore.title}}</h3>
+                        <p>Description : {{chore.description}}</p>
+                        <p>Created at : {{chore.date}}</p>
                         <p>Budget: {{chore.budget}}</p>
-                        <p>{{chore.description}}</p>
+                        <p>This chore assigned to : {{chore.assign_to}}</p>
+                        <p>passed : {{chore.passed}}</p>
+                        <p>completed : {{chore.completed}}</p>
                     {% endfor %}
                 {% endblock content %}
             </div>
