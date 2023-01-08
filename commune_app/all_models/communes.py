@@ -1,6 +1,11 @@
 from django.db import models
 
 
+def validate_wallet(wallet):
+    if (wallet < 0):
+        raise Exception("negative wallet balance")
+
+
 class Commune(models.Model):
     """
     commune object hold his:
@@ -10,7 +15,15 @@ class Commune(models.Model):
     """
     name = models.TextField(max_length=150, unique=True)
     description = models.TextField(blank=True)
-    wallet = models.IntegerField(default=0)
+    wallet = models.IntegerField(default=0, validators=[validate_wallet])
+
+    def clean(self) -> None:
+        validate_wallet(self.wallet)
+        return super().clean()
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
 
     def wallet_charge(self, budget):
         '''

@@ -8,11 +8,16 @@ DESCRIPTION0 = "this is a description for test coomune"
 NAME1 = "test_commune1"
 DESCRIPTION1 = "description1"
 
+UNVALID_NAME = "a" * 200
+NEGATIVE_WALLET = -150
+WALLET = 150
+NAME = "parametrize"
+
 
 @pytest.fixture
 @pytest.mark.django_db()
 def commune0():
-    commune0 = Commune(name=NAME0, description=DESCRIPTION0)
+    commune0 = Commune(name=NAME0, description=DESCRIPTION0, wallet=1000)
     commune0.save()
     return commune0
 
@@ -36,10 +41,25 @@ class TestComuune:
         with pytest.raises(Exception):
             Commune.objects.get(id=new_commune.id)
 
-    def test_wallet(self, commune0):
-        commune0.wallet_charge(-1000)
-        assert commune0.wallet == 1000
+    def test_positive_wallet_charge(self, commune0):
         commune0.wallet_charge(800)
         assert commune0.wallet == 200
+
+    def test_negative_wallet_charge(self, commune0):
         with pytest.raises(Exception):
-            commune0.wallet_charge(300)
+            commune0.wallet_charge(1500)
+
+    # @pytest.mark.parametrize("name, wallet", [
+    #     (UNVALID_NAME, WALLET),
+    #     (NAME, NEGATIVE_WALLET)
+    #     ],
+    # )
+    # def test_invalid_user_values(self, name, wallet):
+    #     with pytest.raises(Exception):
+    #         commune = Commune(name=name, wallet=wallet)
+    #         commune.save()
+
+    def test_a(self):
+        with pytest.raises(Exception):
+            my_commune = Commune(name=UNVALID_NAME, wallet=WALLET)
+            my_commune.save()
