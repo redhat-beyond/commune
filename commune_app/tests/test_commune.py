@@ -8,8 +8,6 @@ DESCRIPTION = "this is a description for test coomune"
 NAME1 = "test_commune1"
 DESCRIPTION1 = "description1"
 
-USERNAME_IN_DB = "testUser123"
-
 
 @pytest.fixture
 def commune0():
