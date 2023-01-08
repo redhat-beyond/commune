@@ -2,8 +2,8 @@ import pytest
 from commune_app.all_models.communes import Commune
 
 
-NAME = "test_commune"
-DESCRIPTION = "this is a description for test coomune"
+NAME0 = "test_commune"
+DESCRIPTION0 = "this is a description for test coomune"
 
 NAME1 = "test_commune1"
 DESCRIPTION1 = "description1"
@@ -12,7 +12,7 @@ DESCRIPTION1 = "description1"
 @pytest.fixture
 @pytest.mark.django_db()
 def commune0():
-    commune0 = Commune(name=NAME, description=DESCRIPTION)
+    commune0 = Commune(name=NAME0, description=DESCRIPTION0)
     commune0.save()
     return commune0
 
@@ -22,13 +22,16 @@ class TestComuune:
 
     def test_my_commune0(self, commune0):
         assert Commune.objects.get(id=commune0.id)
-        assert NAME == commune0.name
-        assert DESCRIPTION == commune0.description
+        assert NAME0 == commune0.name
+        assert DESCRIPTION0 == commune0.description
 
-    def test_create_delete_commune(self):
-        new_commune = Commune(name=NAME, description=DESCRIPTION)
+    def test_create_commune(self):
+        new_commune = Commune(name=NAME1, description=DESCRIPTION1)
         new_commune.save()
         assert Commune.objects.get(id=new_commune.id)
+
+    def test_delete_commune(self):    
+        new_commune = Commune.objects.filter(name=NAME1)
         new_commune.delete()
         with pytest.raises(Exception):
             Commune.objects.get(id=new_commune.id)
