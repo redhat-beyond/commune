@@ -30,7 +30,7 @@ class TestComuune:
         new_commune.save()
         assert Commune.objects.get(id=new_commune.id)
 
-    def test_delete_commune(self):    
+    def test_delete_commune(self):
         new_commune = Commune.objects.filter(name=NAME1)
         new_commune.delete()
         with pytest.raises(Exception):
