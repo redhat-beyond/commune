@@ -22,9 +22,9 @@ class User(AbstractUser):
     last_name
     email
 
-    we add:
-    validator for email
-    the communes that the user participates in
+    added:
+    Email validation functionality for user details
+    commune id
     '''
     email = models.EmailField(unique=True, validators=[validate_email_addr])
     commune_id = models.ForeignKey(Commune, on_delete=models.CASCADE, null=True, blank=True)
