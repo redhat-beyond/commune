@@ -10,3 +10,7 @@ def chores(request):
     chores = Chore.objects.all()
     context = {'chores': chores}
     return render(request, 'commune_app/chores.html', context)
+
+
+def commune(request):
+    return render(request, 'commune_app/commune.html')

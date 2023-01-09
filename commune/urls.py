@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.main_page, name='Main_Page'),
     path('chores/', views.chores, name="chores"),
+    path('commune/', views.commune, name="commune"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
