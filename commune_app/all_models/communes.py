@@ -16,10 +16,10 @@ def validate_name(name):
 
 class Commune(models.Model):
     """
-    commune object hold his:
-    name
-    description on the commune
-    money in the wallet
+    The commune object stores the following: 
+    Name
+    Description of the commune
+    Wallet balance
     """
     name = models.TextField(max_length=MAX_LEN_NAME, unique=True, validators=[validate_name], blank=False)
     description = models.TextField(blank=True)
