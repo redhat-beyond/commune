@@ -4,9 +4,9 @@ The platform assists member in managing expenses, tasks , voting, and more.
 
 ## ERD
 
-![ERD](static\images\ERD.png)
+![ERD](./static/images/ERD.png)
 
 ## DFD
 
-![DFD](static\images\DFD.png)
+![DFD](./static/images/DFD.png)
  
