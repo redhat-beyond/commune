@@ -16,7 +16,7 @@ def validate_name(name):
 
 class Commune(models.Model):
     """
-    The commune object stores the following: 
+    The commune object stores the following:
     Name
     Description of the commune
     Wallet balance
