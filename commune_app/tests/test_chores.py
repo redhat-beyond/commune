@@ -2,6 +2,19 @@ import pytest
 from commune_app.models import Chore, User
 
 
+LONG_FIELD = "A" * 301
+
+TITLE_NOT_IN_DB = "WTF"
+
+TITLE = "Gardener"
+DATE = (2000, 1, 15)
+BUDGET = 0
+DESCRIPTION = "take care of garden"
+ASSIGN_TO = "tom"
+PASSED = False
+COMPLETED = False
+
+
 USER1_ID = 206609999
 USER1_USERNAME = "Elias"
 USER1_PASSWORD = "Wtf123"
@@ -44,17 +57,14 @@ def chore0(user0):
 
 
 @pytest.fixture
-def persist_chore(db, chore0):
+@pytest.mark.django_db()
+def persist_chore(chore0):
     chore0.save()
     return chore0
 
 
 @pytest.mark.django_db()
 class TestChoreModel:
-
-    def test_delete_chore(self, persist_chore):
-        persist_chore.delete()
-        assert persist_chore not in Chore.objects.all()
 
     def test_new_chore(self, chore0):
         assert chore0.title == CHORE_TITLE
@@ -64,3 +74,11 @@ class TestChoreModel:
         assert chore0.assign_to.first_name == "Elias"
         assert chore0.passed == CHORE_PASSED
         assert chore0.completed == CHORE_COMPLETED
+
+    def test_delete_chore(self, persist_chore):
+        persist_chore.delete()
+        assert persist_chore not in Chore.objects.all()
+
+    def test_title_not_in_db(self):
+        with pytest.raises(Exception):
+            Chore.objects.get(title=TITLE_NOT_IN_DB)
