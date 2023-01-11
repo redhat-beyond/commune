@@ -22,7 +22,9 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.main_page, name='Main_Page'),
-    path('chores/', views.chores, name="chores"),
+    path('commune/', views.commune, name="commune"),
+    path('login/', views.user_login, name="login"),
+    path('signup/', views.user_signup, name="signup"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
