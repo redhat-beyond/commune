@@ -14,6 +14,8 @@ WALLET = 150
 NAME = "parametrize"
 NUMBER = 555
 STRING = "abc"
+DESCRIPTION = "test description"
+UNVALID_DESCRIPTION = "a" * 251
 
 
 @pytest.fixture
@@ -51,14 +53,15 @@ class TestComuune:
         with pytest.raises(Exception):
             commune0.wallet_charge(1500)
 
-    @pytest.mark.parametrize("name, wallet", [
-        (UNVALID_NAME, WALLET),    # long name
-        (NAME, NEGATIVE_WALLET),   # negative wallet balance
-        (None, WALLET),            # None name
-        (NAME, STRING)
+    @pytest.mark.parametrize("name, wallet, description", [
+        (UNVALID_NAME, WALLET, DESCRIPTION),    # long name
+        (NAME, NEGATIVE_WALLET, DESCRIPTION),   # negative wallet balance
+        (None, WALLET, DESCRIPTION),            # None name
+        (NAME, STRING, DESCRIPTION),
+        (NAME, WALLET, UNVALID_DESCRIPTION)
         ],
     )
-    def test_invalid_user_values(self, name, wallet):
+    def test_invalid_commune_values(self, name, wallet, description):
         with pytest.raises(Exception):
-            commune = Commune(name=name, wallet=wallet)
+            commune = Commune(name=name, wallet=wallet, description=description)
             commune.save()

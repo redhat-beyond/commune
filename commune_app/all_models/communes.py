@@ -1,17 +1,9 @@
 from django.db import models
 
 
-MAX_LEN_NAME = 100
-
-
 def validate_wallet(wallet):
     if (wallet < 0):
         raise Exception("negative wallet balance")
-
-
-def validate_name(name):
-    if (len(name) > MAX_LEN_NAME):
-        raise Exception("long name")
 
 
 class Commune(models.Model):
@@ -21,13 +13,12 @@ class Commune(models.Model):
     Description of the commune
     Wallet balance
     """
-    name = models.TextField(max_length=MAX_LEN_NAME, unique=True, validators=[validate_name], blank=False)
-    description = models.TextField(blank=True)
+    name = models.CharField(max_length=100, unique=True, blank=False)
+    description = models.CharField(max_length=250, blank=True)
     wallet = models.IntegerField(default=0, validators=[validate_wallet])
 
     def clean(self) -> None:
         validate_wallet(self.wallet)
-        validate_name(self.name)
         return super().clean()
 
     def save(self, *args, **kwargs):
