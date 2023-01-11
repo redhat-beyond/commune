@@ -2,7 +2,7 @@ import pytest
 from commune_app.models import Chore, User
 
 
-UNVALID_NAME = "a" * 200
+LONG_FIELD = "a" * 301
 NEGATIVE_WALLET = -150
 
 TITLE_NOT_IN_DB = "WTF"
@@ -34,14 +34,15 @@ CHORE_COMPLETED = True
 
 @pytest.fixture
 def user0():
-    return User(
-        id=USER1_ID,
+    user0 = User(
         username=USER1_USERNAME,
         password=USER1_PASSWORD,
         first_name=USER1_FIRST_NAME,
         last_name=USER1_LAST_NAME,
         email=USER1_EMAIL
     )
+    user0.save()
+    return user0
 
 
 @pytest.fixture
@@ -83,3 +84,36 @@ class TestChoreModel:
     def test_title_not_in_db(self):
         with pytest.raises(Exception):
             Chore.objects.get(title=TITLE_NOT_IN_DB)
+
+    def test_create_chore(self, user0):
+        new_chore = Chore(
+            title=TITLE,
+            description=DESCRIPTION,
+            date=DATE,
+            budget=BUDGET,
+            assign_to=user0,
+            passed=PASSED,
+            completed=COMPLETED
+        )
+        new_chore.save()
+        assert new_chore in Chore.objects.all()
+
+    @pytest.mark.parametrize("title, description, date, budget, assign_to, passed, completed", [
+        (LONG_FIELD, DESCRIPTION, DATE, BUDGET, ASSIGN_TO, PASSED, COMPLETED),       # long title
+        (TITLE, LONG_FIELD, DATE, BUDGET, ASSIGN_TO, PASSED, COMPLETED),      # long description
+        (CHORE_TITLE, DESCRIPTION, DATE, BUDGET, ASSIGN_TO, PASSED, COMPLETED),      # title name taken
+
+        ],
+    )
+    def test_invalid_chore_values(self, title, description, date, budget, assign_to, passed, completed, persist_chore):
+        with pytest.raises(Exception):
+            chore = Chore(
+                title=title,
+                description=description,
+                date=date,
+                budget=budget,
+                assign_to=assign_to,
+                passed=passed,
+                completed=completed
+            )
+            chore.save()
