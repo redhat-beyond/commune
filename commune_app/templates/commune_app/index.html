@@ -1,114 +1,85 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Communet</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
-</head>
-<body>
-    <!--NAVIGATION BAR-->
-    <nav class="navbar sticky-top navbar-light navbar-expand-lg">
-        <div class="container max-width">
-        <a href="#" class="navbar-brand">
-        <img class="logo" src="{% static 'images/Communet.png' %}" alt="Logo" title="Logo"></a>
-        <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-label="navbar">
-        <span class="navbar-toggler-icon bg-light">
-        </span></button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="{% url 'Main_Page' %}" class="nav-link active text-white">Home</a></li>
-            <li class="nav-item"><a href="#story" class="nav-link active text-white">About Us</a></li>
-            <li class="nav-item"><a href="{% url 'chores' %}" class="nav-link active text-white">Chores</a></li>
-            <li class="nav-item"><a href="#team" class="nav-link active text-white">Team</a></li></ul>
-        </div>
-        </div>
-    </nav>
-    <!--THE HERO IMAGE PIC -->
-    <section class="hero-image">
-        <div class="max-width">
-          <div class="hero-text">
-            <h1>Communet</h1>
-            <p>Bring People Together</p>
-            <!--<button></button>-->
-          </div>
-        </div>
-    </section> 
-    <main>
-        <!---about us page-->
-        <section class="aboutus" id="story">
-            <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-2 mb-5 col-sm-12 col-xs-12 p-3 mt-5">
-                <h3>Our Story</h3>
-                <p>The Communet platform allows people with shared interests and values to create a financially cooperative community, with pre-established norms and procedures.
+{% extends 'base.html' %}
+{% block title %} Communes {% endblock %}
+{% block body %}
+<!--THE HERO IMAGE PIC -->
+<section class="hero-image">
+    <div class="max-width">
+      <div class="hero-text">
+        <h1>Communet</h1>
+        <p>Bring People Together</p>
+        <!--<button></button>-->
+      </div>
+    </div>
+</section> 
+<main>
+    <!---about us page-->
+    <section class="aboutus" id="story">
+        <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 mb-5 col-sm-12 col-xs-12 p-3 mt-5">
+            <h3>Our Story</h3>
+            <p>The Communet platform allows people with shared interests and values to create a financially cooperative community, with pre-established norms and procedures.
 
-                    Chores, shopping, and bills are all pre-configured and agreed upon before co-habitation begins, taking the mess and complexity out of starting a shared life.
-                
-                    Future chores, expenses, and savings can be added and voted on at any time.
-                </p>
-                </div>
+                Chores, shopping, and bills are all pre-configured and agreed upon before co-habitation begins, taking the mess and complexity out of starting a shared life.
+            
+                Future chores, expenses, and savings can be added and voted on at any time.
+            </p>
             </div>
-        </section>
-
-        <!--   Team info -->
-        <section class="services m-3 mb-5 justify-content-center" id="team">
-            <div class="container-fluid ">
-            <div class="col-md-6 offset-md-3 col-sm-12 text-center col-xs-12 p-3">
-                <h3>Our Team</h3>
-            </div>
-            <div class="row mb-5 mx-3">
-                <div class="col-md-4  mt-3 text-center p-2">
-                    <img src="images/m2.svg" alt="picture shows a profile img of male avatar" class="w-50">
-                    <h4 class="p-4">Faez Zangariya</h4>
-                    <p>Computer Science Student, Fourth year,23 years old, Pro Gamer and Superbike enthusiast.</p>
-                    <a href="#" class="btn btn-primary m-3 btn-mds">Hire me</a>
-                </div>
-                <div class="col-md-4  mt-3 text-center p-2">
-                    <img src="images/m1.svg" alt="" class="w-50">
-                    <h4 class="p-4">Ron Turetzky</h4>
-                    <p>Bioinformatics DevOps, Blockchain enthusiast, professional task management software implementer/freak, activist , and avid nerd.</p>
-                    <a href="#" class="btn btn-danger m-3 btn-mds">Hire me</a>
-                </div>
-                <div class="col-md-4  mt-3 text-center p-2">
-                <img src="images/m2.svg" alt="picture shows a profile img of male avatar" class="w-50">
-                <h4 class="p-4">Elias Assy</h4>
-                <p>Computer Science Student, Third year, Surveyor, Web Designer and Pro gamer.</p>
-                <a href="#" class="btn btn-primary btn-mds m-3">Hire me</a>
-                </div>
-                <div class="col-md-4 offset-md-2 mb-5 text-center p-2">
-                <img src="images/m2.svg" alt="picture shows a profile img of male avatar" class="w-50">
-                <h4 class="p-4">Ofir Tzabari</h4>
-                <p>Computer Science Student, 24 years old, Lives in Keriyat Shemona, Pro Tennis and CrossFit player ,Big Fan of Programming.</p>
-                <a href="#" class="btn btn-primary m-3 btn-mds">Hire me</a>
-                </div>
-                <div class="col-md-4 mb-5 text-center p-2">
-                <img src="images/f1.svg" alt="picture shows a profile img of female avatar" class="w-50">
-                <h4 class="p-4">Nicole Pauzner</h4>
-                <p>Computer Science Student, Based in Tel Aviv City, Loves Reading Books, Hiking and Cooking.</p>
-                <a href="#" class="btn btn-primary m-3 btn-mds">Hire me</a>
-                </div>
-            </div>
-            </div>
-        </section>
-    </main>
-    <!-- footer section start -->
-    <footer>
-        <div class="footer col-md-12 text-center">
-          <span>Copyright@ 2022 Communet | ALL Rights Reserved.</span>
         </div>
-    </footer>
-    <script src="script.js"></script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </section>
+
+    <!--   Team info -->
+    <section class="services m-3 mb-5 justify-content-center" id="team">
+        <div class="container-fluid ">
+        <div class="col-md-6 offset-md-3 col-sm-12 text-center col-xs-12 p-3">
+            <h3>Our Team</h3>
+        </div>
+        <div class="row mb-5 mx-3">
+            <div class="col-md-4  mt-3 text-center p-2">
+                <img src="images/m2.svg" alt="picture shows a profile img of male avatar" class="w-50">
+                <h4 class="p-4">Faez Zangariya</h4>
+                <p>Computer Science Student, Fourth year,23 years old, Pro Gamer and Superbike enthusiast.</p>
+                <a href="#" class="btn btn-primary m-3 btn-mds">Hire me</a>
+            </div>
+            <div class="col-md-4  mt-3 text-center p-2">
+                <img src="images/m1.svg" alt="" class="w-50">
+                <h4 class="p-4">Ron Turetzky</h4>
+                <p>Bioinformatics DevOps, Blockchain enthusiast, professional task management software implementer/freak, activist , and avid nerd.</p>
+                <a href="#" class="btn btn-danger m-3 btn-mds">Hire me</a>
+            </div>
+            <div class="col-md-4  mt-3 text-center p-2">
+            <img src="images/m2.svg" alt="picture shows a profile img of male avatar" class="w-50">
+            <h4 class="p-4">Elias Assy</h4>
+            <p>Computer Science Student, Third year, Surveyor, Web Designer and Pro gamer.</p>
+            <a href="#" class="btn btn-primary btn-mds m-3">Hire me</a>
+            </div>
+            <div class="col-md-4 offset-md-2 mb-5 text-center p-2">
+            <img src="images/m2.svg" alt="picture shows a profile img of male avatar" class="w-50">
+            <h4 class="p-4">Ofir Tzabari</h4>
+            <p>Computer Science Student, 24 years old, Lives in Keriyat Shemona, Pro Tennis and CrossFit player ,Big Fan of Programming.</p>
+            <a href="#" class="btn btn-primary m-3 btn-mds">Hire me</a>
+            </div>
+            <div class="col-md-4 mb-5 text-center p-2">
+            <img src="images/f1.svg" alt="picture shows a profile img of female avatar" class="w-50">
+            <h4 class="p-4">Nicole Pauzner</h4>
+            <p>Computer Science Student, Based in Tel Aviv City, Loves Reading Books, Hiking and Cooking.</p>
+            <a href="#" class="btn btn-primary m-3 btn-mds">Hire me</a>
+            </div>
+        </div>
+        </div>
+    </section>
+</main>
+<!-- footer section start -->
+<footer>
+    <div class="footer col-md-12 text-center">
+      <span>Copyright@ 2022 Communet | ALL Rights Reserved.</span>
+    </div>
+</footer>
+<script src="script.js"></script>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
+{% endblock %}
