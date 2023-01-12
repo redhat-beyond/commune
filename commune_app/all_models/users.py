@@ -6,6 +6,7 @@ from commune_app.all_models.communes import Commune
 from commune_app.all_models.votes import Vote
 
 
+
 def validate_email_addr(email):
     try:
         validate_email(email)
@@ -46,7 +47,6 @@ class User(AbstractUser):
     def leave_commune(self):
         if (self.commune_id is not None):
             self.commune_id = None
-
     def vote(self, chore_id, decision):
         Vote.create_new_vote(voting_user=self.id, voted_chore=chore_id, vote_bool=decision)
 
