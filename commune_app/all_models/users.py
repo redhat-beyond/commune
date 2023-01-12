@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from commune_app.all_models.communes import Commune
+from commune_app.all_models.votes import Vote
+from commune_app.all_models.chores import Chore
 
 
 def validate_email_addr(email):
@@ -37,11 +39,19 @@ class User(AbstractUser):
         self.full_clean()
         return super().save(*args, **kwargs)
 
-    def vote_on_decision(decision_id):
-        pass
+    def join_commune(self, commune_id):
+        if (self.commune_id is not None and self.commune_id != commune_id):
+            raise Exception("already partner in another commune")
+        self.commune_id = commune_id
 
-    def add_decision(args):
-        pass
+    def leave_commune(self):
+        if (self.commune_id is not None):
+            self.commune_id = None
 
-    def execute_chore():
-        pass
+    def vote(self, chore_id, decision):
+        Vote.create_new_vote(voting_user=self.id, voted_chore=chore_id, vote_bool=decision)
+
+    def execute_chore(self, chore_id):
+        chore = Chore.objects.filter(id=chore_id)[0]
+        if (chore.passed is True and chore.assign_to == self.id):
+            chore.completed = True
