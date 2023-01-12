@@ -2,6 +2,7 @@ import pytest
 from commune_app.all_models.users import User
 from commune_app.all_models.chores import Chore
 from commune_app.all_models.votes import Vote
+from commune_app.all_models.votes import Poll
 
 
 USER_NAME0 = "user0"
@@ -94,20 +95,31 @@ def chore0(user0):
 
 
 @pytest.fixture
+def poll0(chore0):
+    poll0 = Poll(
+        chore=chore0,
+        question=chore0.title,
+        option_one='Yes',
+        option_two='No')
+    poll0.save()
+    return poll0
+
+
+@pytest.fixture
 def vote0(user0, chore0):
     return Vote(user=user0, chore=chore0, approve=False)
 
 
 @pytest.mark.django_db()
 class TestVote:
-    def test_new_vote(self, vote0, user0, chore0):
+    def test_new_vote(self, vote0, user0, poll0, chore0):
         assert vote0.user == user0
         assert vote0.chore == chore0
         assert not vote0.approve
 
-    def test_passing_chore(self, user0, user1, user2, chore0):
+    def test_passing_chore(self, user0, user1, user2, chore0, poll0):
         # first vote
-        Vote.create_new_vote(user1, chore0, True)
+        Vote.create_new_vote(user1, chore0, poll0, True)
 
         # 1 user voted with yes
         assert len(Vote.objects.filter(chore=chore0, approve=True)) == 1
@@ -117,7 +129,7 @@ class TestVote:
         assert not Chore.objects.filter(title=CHORE_TITLE).first().passed
 
         # second vote
-        Vote.create_new_vote(user2, chore0, False)
+        Vote.create_new_vote(user2, chore0, poll0, False)
 
         # 1 user voted with yes and another with no, and still only 2 votes, we need 3 to decide
         assert len(Vote.objects.filter(chore=chore0, approve=True)) == 1
@@ -127,7 +139,7 @@ class TestVote:
         assert not Chore.objects.filter(title=CHORE_TITLE).first().passed
 
         # third vote
-        Vote.create_new_vote(user0, chore0, True)
+        Vote.create_new_vote(user0, chore0, poll0, True)
 
         # 2 users voted with yes and 1 with no
         assert len(Vote.objects.filter(chore=chore0, approve=True)) == 2
