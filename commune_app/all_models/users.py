@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from commune_app.all_models.communes import Commune
-from commune_app.all_models.votes import Vote
 
 
 
@@ -47,6 +46,3 @@ class User(AbstractUser):
     def leave_commune(self):
         if (self.commune_id is not None):
             self.commune_id = None
-    def vote(self, chore_id, decision):
-        Vote.create_new_vote(voting_user=self.id, voted_chore=chore_id, vote_bool=decision)
-
