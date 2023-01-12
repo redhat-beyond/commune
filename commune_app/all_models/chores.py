@@ -22,3 +22,8 @@ class Chore(models.Model):
     @staticmethod
     def get_chore(id):
         return Chore.objects.filter(id=id).first()
+
+    def execute_chore(self, chore_id,user_id):
+        chore = Chore.objects.filter(id=chore_id)[0]
+        if (chore.passed is True and chore.assign_to == user_id):
+            chore.completed = True
