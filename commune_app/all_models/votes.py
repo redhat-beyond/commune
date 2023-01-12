@@ -22,5 +22,3 @@ class Vote(models.Model):
                 voted_chore.save()
     def vote(self, chore_id, decision):
         Vote.create_new_vote(voting_user=self.id, voted_chore=chore_id, vote_bool=decision)
-
-
