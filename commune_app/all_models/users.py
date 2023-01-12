@@ -4,10 +4,7 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from commune_app.all_models.communes import Commune
 from commune_app.all_models.votes import Vote
-<<<<<<< HEAD
-=======
-from commune_app.all_models.chores import Chore
->>>>>>> 48792a9cdba40b646042f566f1952170d3591062
+
 
 
 def validate_email_addr(email):
