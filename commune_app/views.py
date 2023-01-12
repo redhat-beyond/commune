@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login, logout
 from .models import Chore, Commune
+from django.http import HttpResponse
+from .models import Poll
 
 
 def main_page(request):
@@ -46,3 +48,50 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('Main_Page')
+
+
+def votes_main(request):
+    polls = Poll.objects.all()
+    context = {
+        'polls': polls
+    }
+    return render(request, 'voting/votes.html', context)
+
+
+def vote(request, poll_id):
+    poll = Poll.objects.get(pk=poll_id)
+
+    # LoggedInUser = (not implemented yet)
+
+    if request.method == 'POST':
+        # if(Vote.objects.getall(user=LoggedInUser, chore=poll.chore))
+        #   the user has already voted on this chore. can't vote more than once.
+        #   return a fitting error message
+
+        selected_option = request.POST['poll']
+
+        if selected_option == 'option1':
+            poll.option_one_count += 1
+            # Vote(LoggedInUser, poll.chore, poll, True)
+        elif selected_option == 'option2':
+            poll.option_two_count += 1
+            # Vote(LoggedInUser, poll.chore, poll, False)
+        else:
+            return HttpResponse(400, 'Invalid form')
+
+        poll.save()
+
+        return redirect('results', poll.id)
+
+    context = {
+        'poll': poll
+    }
+    return render(request, 'voting/vote.html', context)
+
+
+def results(request, poll_id):
+    poll = Poll.objects.get(pk=poll_id)
+    context = {
+        'poll': poll
+    }
+    return render(request, 'voting/results.html', context)

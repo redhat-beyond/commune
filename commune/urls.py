@@ -25,6 +25,9 @@ urlpatterns = [
     path('commune/', views.commune, name="commune"),
     path('login/', views.user_login, name="login"),
     path('signup/', views.user_signup, name="signup"),
+    path('votes/', views.votes_main, name='votes'),
+    path('vote/<poll_id>/', views.vote, name='vote'),
+    path('results/<poll_id>/', views.results, name='results'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
