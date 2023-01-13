@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 from commune_app.all_models.communes import Commune
 
 
-
 def validate_email_addr(email):
     try:
         validate_email(email)
