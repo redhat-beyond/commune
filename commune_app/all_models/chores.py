@@ -33,6 +33,6 @@ class Chore(models.Model):
         return Chore.objects.filter(id=id).first()
 
     def execute_chore(self, chore_id, user_id):
-        chore = Chore.objects.filter(id=chore_id)[0]
+        chore = Chore.objects.filter(id=chore_id).first()
         if chore.passed and chore.assign_to == user_id:
             chore.completed = True
