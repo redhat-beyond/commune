@@ -6,7 +6,6 @@ from commune_app.all_models.communes import Commune
 from commune_app.all_models.votes import Vote
 
 
-
 def validate_email_addr(email):
     try:
         validate_email(email)
