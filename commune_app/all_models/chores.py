@@ -25,5 +25,5 @@ class Chore(models.Model):
 
     def execute_chore(self, chore_id, user_id):
         chore = Chore.objects.filter(id=chore_id)[0]
-        if (chore.passed is True and chore.assign_to == user_id):
+        if chore.passed and chore.assign_to == user_id:
             chore.completed = True
