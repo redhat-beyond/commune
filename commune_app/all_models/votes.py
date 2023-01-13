@@ -20,5 +20,6 @@ class Vote(models.Model):
             if num_of_yes_votes > num_of_no_votes:
                 voted_chore.passed = True
                 voted_chore.save()
+
     def vote(self, chore_id, decision):
         Vote.create_new_vote(voting_user=self.id, voted_chore=chore_id, vote_bool=decision)
