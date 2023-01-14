@@ -37,11 +37,11 @@ class User(AbstractUser):
         self.full_clean()
         return super().save(*args, **kwargs)
 
-    def vote_on_decision(decision_id):
-        pass
+    def join_commune(self, commune_id):
+        if (self.commune_id is not None and self.commune_id != commune_id):
+            raise Exception("already partner in another commune")
+        self.commune_id = commune_id
 
-    def add_decision(args):
-        pass
-
-    def execute_chore():
-        pass
+    def leave_commune(self):
+        if (self.commune_id is not None):
+            self.commune_id = None
