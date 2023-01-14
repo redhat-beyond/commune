@@ -22,7 +22,7 @@ def user_signup(request):
         name = request.POST['name']
         password = request.POST['password']
         user_model = get_user_model()
-        user_obj = user_model.objects.create_user(email=email, name=name)
+        user_obj = user_model.objects.create_user(email=email, username=name, password=password)
         user_obj.set_password(password)
         user_obj.save()
         user_auth = authenticate(username=email, password=password)
