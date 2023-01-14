@@ -35,3 +35,7 @@ class Commune(models.Model):
             raise Exception("will enter negative balance")
         else:
             self.wallet -= budget
+    def create_commune(self, name, description,wallet):
+        my_commune = Commune(name=name, description=description, wallet=wallet)
+        my_commune.save()
+        return my_commune
