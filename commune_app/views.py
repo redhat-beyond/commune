@@ -22,7 +22,7 @@ def user_signup(request):
         name = request.POST['name']
         password = request.POST['password']
         user_model = get_user_model()
-        user_obj = user_model.objects.create_user(email=email, name=name)
+        user_obj = user_model.objects.create_user(email=email, username=name, password=password)
         user_obj.set_password(password)
         user_obj.save()
         user_auth = authenticate(username=email, password=password)
@@ -34,11 +34,13 @@ def user_signup(request):
 
 def user_login(request):
     if request.method == 'POST':
-        email = request.POST['email']
+        email = request.POST['username']
         password = request.POST['password']
-        user_auth = authenticate(username=email, password=password)
-        login(request, user_auth)
-        return redirect('Main_Page')
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            login(request, user)
+        else:
+            return redirect('Main_Page')
     else:
         return render(request, 'commune_app/login.html')
 
