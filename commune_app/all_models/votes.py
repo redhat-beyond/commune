@@ -21,5 +21,9 @@ class Vote(models.Model):
                 voted_chore.passed = True
                 voted_chore.save()
 
-    def vote(self, chore_id, decision):
-        Vote.create_new_vote(voting_user=self.id, voted_chore=chore_id, vote_bool=decision)
+    @staticmethod
+    def vote(self, user_id, chore_id, decision):
+        '''
+        static method for voting that calling create_new_vote
+        '''
+        Vote.create_new_vote(voting_user=user_id, voted_chore=chore_id, vote_bool=decision)
