@@ -18,7 +18,6 @@ class Commune(models.Model):
     name = models.CharField(max_length=100, unique=True, blank=False)
     description = models.CharField(max_length=250, blank=True)
     wallet = models.IntegerField(default=0, validators=[validate_wallet])
-    founder = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=346)  # 346 = Admin
 
     def clean(self) -> None:
         validate_wallet(self.wallet)
@@ -39,13 +38,13 @@ class Commune(models.Model):
         else:
             self.wallet -= budget
 
-    def create_commune(self, founder, name, description, wallet):
-        my_commune = Commune(founder=founder, name=name, description=description, wallet=wallet)
+    def create_commune(self, name, description, wallet):
+        my_commune = Commune(name=name, description=description, wallet=wallet)
         my_commune.save()
         return my_commune
 
     def add_user(self, user, requesting_user):
-        if requesting_user != self.founder:
+        if not requesting_user.is_superuser:
             raise PermissionDenied("Only the founder can perform this action.")
         if user.commune_id is not None:
             raise Exception("User is already a member of another commune")
@@ -53,7 +52,7 @@ class Commune(models.Model):
         self.users.add(user)
 
     def remove_user(self, user, requesting_user):
-        if requesting_user != self.founder:
+        if not requesting_user.is_superuser:
             raise PermissionDenied("Only the founder can perform this action.")
         if user.commune_id != self:
             raise Exception("User is not a member of this commune")
