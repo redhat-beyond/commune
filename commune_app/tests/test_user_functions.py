@@ -2,6 +2,7 @@ import pytest
 from commune_app.all_models.users import User
 from commune_app.all_models.communes import Commune
 from commune_app.all_models.chores import Chore
+from commune_app.all_models.votes import Vote
 
 
 USER_NAME0 = "user0"
@@ -21,6 +22,8 @@ DESCRIPTION = "take care of garden"
 ASSIGN_TO = "tom"
 PASSED = True
 COMPLETED = False
+
+NOT_PASSED = False
 
 
 @pytest.fixture
@@ -47,6 +50,7 @@ def commune0():
 
 
 @pytest.fixture
+@pytest.mark.django_db()
 def chore0(user0):
     chore0 = Chore(
         title=TITLE,
@@ -61,18 +65,44 @@ def chore0(user0):
     return chore0
 
 
+@pytest.fixture
+@pytest.mark.django_db()
+def chore1(user0):
+    chore1 = Chore(
+        title=TITLE,
+        description=DESCRIPTION,
+        date=DATE,
+        budget=BUDGET,
+        assign_to=user0,
+        passed=NOT_PASSED,
+        completed=COMPLETED
+        )
+    chore1.save()
+    return chore1
+
+
 @pytest.mark.django_db()
 class TestUserFunctions:
 
     def test_join_commune(self, user0, commune0):
-        user0.join_commune(commune0.id)
+        assert user0 not in User.objects.filter(commune_id=commune0)
+        join_string = user0.join_commune(commune0.id)
         assert user0 in User.objects.filter(commune_id=commune0)
+        assert join_string == "you joined to commune: " + commune0.name
 
     def test_leave_commune(self, user0, commune0):
         user0.join_commune(commune0.id)
+        assert user0 in User.objects.filter(commune_id=commune0)
         user0.leave_commune()
-        assert (user0 in User.objects.filter(commune_id=commune0)) is False
+        assert user0 not in User.objects.filter(commune_id=commune0)
 
     def test_execute_chore(self, chore0, user0):
+        assert not chore0.completed
         chore0.execute_chore(user0.id)
         assert chore0.completed
+
+    def test_user_vote(self, chore1, user0):
+        assert not chore1.passed
+        vote = Vote.create_new_vote(user0, chore1, True)
+        assert vote in Vote.objects.all()
+        # assert chore1.passed     | will not work only after implement commune.size method and put in create_new_vote
