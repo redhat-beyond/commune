@@ -10,13 +10,17 @@ def main_page(request):
     return render(request, 'commune_app/index.html', context)
 
 
-def commune_details(request):
+def commune(request):
     commune_id = request.user.commune_id
-    active_chores = Chore.objects.filter(commune_id=commune_id,completed=False,passed=True)
-    chores_to_vote_on = Chore.objects.filter(commune_id=commune_id,passed=False)
-
+    chores = Chore.objects.filter(commune_id=commune_id,passed=False)
     context = {'chores': chores}
     return render(request, 'commune_app/commune.html', context)
+    # active_chores = Chore.objects.filter(commune_id=commune_id,completed=False,passed=True)
+    # commune = Commune.objects.filter(id=commune_id).first()
+    # wallet = commune.wallet
+    # description = commune.description
+    # context = {'active_chores': active_chores, 'chores_to_vote_on': chores_to_vote_on, 'wallet': wallet, 'description': description}
+    # context = {'active_chores': active_chores, 'chores_to_vote_on': chores_to_vote_on}
 
 
 def user_signup(request):

@@ -5,7 +5,19 @@
     <div class="container-fluid text-center p-5">
         <h1 style="color:brown">Communes</h1>
     </div>
-    
+    <ul>
+        {% for chore in chores %}
+        <li>{{ chore.name }}</li>
+        {% endfor %}
+    </ul>
+     {% block content %}
+                    {% for chore in Chores %}
+                        <h3>{{chore.title}} - Created at : {{chore.date}}</h3>
+                        <p>This is assigned to :{{chore.assign}}</p>
+                        <p>Budget: {{chore.budget}}</p>
+                        <p>{{chore.description}}</p>
+                    {% endfor %}
+    {% endblock content %}
 </main>
 <footer>
     <div class="footer col-md-12 text-center ">
