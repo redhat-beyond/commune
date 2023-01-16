@@ -10,8 +10,11 @@ def main_page(request):
     return render(request, 'commune_app/index.html', context)
 
 
-def commune(request):
-    chores = Chore.objects.all()
+def commune_details(request):
+    commune_id = request.user.commune_id
+    active_chores = Chore.objects.filter(commune_id=commune_id,completed=False,passed=True)
+    chores_to_vote_on = Chore.objects.filter(commune_id=commune_id,passed=False)
+
     context = {'chores': chores}
     return render(request, 'commune_app/commune.html', context)
 
