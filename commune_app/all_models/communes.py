@@ -47,7 +47,6 @@ class Commune(models.Model):
         if user.commune_id is not None:
             raise Exception("User is already a member of another commune")
         user.join_commune(self)
-        self.users.add(user)
 
     def remove_user(self, user, requesting_user):
         if not requesting_user.is_superuser:
