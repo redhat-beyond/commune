@@ -88,7 +88,7 @@ class TestUserFunctions:
         assert user0 not in User.objects.filter(commune_id=commune0)
         assert user0.join_commune(commune0.id)
         assert user0 in User.objects.filter(commune_id=commune0)
-        
+
     def test_leave_commune(self, user0, commune0):
         user0.join_commune(commune0.id)
         assert user0 in User.objects.filter(commune_id=commune0)
