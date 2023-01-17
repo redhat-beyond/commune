@@ -38,7 +38,6 @@ class User(AbstractUser):
         return super().save(*args, **kwargs)
 
     def join_commune(self, commune_id):
-        commune = Commune.objects.filter(id=commune_id).first()
         if (self.commune_id is not None and self.commune_id != commune_id):
             raise Exception("already partner in the commune: " + self.commune_id.name)
         self.commune_id_id = commune_id
