@@ -86,10 +86,9 @@ class TestUserFunctions:
 
     def test_join_commune(self, user0, commune0):
         assert user0 not in User.objects.filter(commune_id=commune0)
-        join_string = user0.join_commune(commune0.id)
+        assert user0.join_commune(commune0.id)
         assert user0 in User.objects.filter(commune_id=commune0)
-        assert join_string == "you joined to commune: " + commune0.name
-
+        
     def test_leave_commune(self, user0, commune0):
         user0.join_commune(commune0.id)
         assert user0 in User.objects.filter(commune_id=commune0)
@@ -103,6 +102,5 @@ class TestUserFunctions:
 
     def test_user_vote(self, chore1, user0):
         assert not chore1.passed
-        vote = Vote.create_new_vote(user0, chore1, True)
+        vote = Vote.create_new_vote(voting_user=user0, voted_chore=chore1, vote_bool=True)
         assert vote in Vote.objects.all()
-        # assert chore1.passed     | will not work only after implement commune.size method and put in create_new_vote

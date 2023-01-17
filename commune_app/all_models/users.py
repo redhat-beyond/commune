@@ -43,7 +43,7 @@ class User(AbstractUser):
             raise Exception("already partner in the commune: " + self.commune_id.name)
         self.commune_id_id = commune_id
         self.save()
-        return "you joined to commune: " + commune.name
+        return True
 
     def leave_commune(self):
         if self.commune_id is None:
