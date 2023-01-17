@@ -38,12 +38,13 @@ def user_signup(request):
     else:
         return render(request, 'commune_app/signup.html')
 
+def user_login(request):
 
 def user_login(request):
     if request.method == 'POST':
-        email = request.POST['username']
+        username = request.POST['username']
         password = request.POST['password']
-        user = authenticate(username=email, password=password)
+        user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
         else:
