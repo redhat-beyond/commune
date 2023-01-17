@@ -11,9 +11,16 @@ def main_page(request):
 
 
 def commune(request):
-    chores = Chore.objects.all()
+    commune_id = request.user.commune_id
+    chores = Chore.objects.filter(commune_id=commune_id,passed=False)
     context = {'chores': chores}
     return render(request, 'commune_app/commune.html', context)
+    # active_chores = Chore.objects.filter(commune_id=commune_id,completed=False,passed=True)
+    # commune = Commune.objects.filter(id=commune_id).first()
+    # wallet = commune.wallet
+    # description = commune.description
+    # context = {'active_chores': active_chores, 'chores_to_vote_on': chores_to_vote_on, 'wallet': wallet, 'description': description}
+    # context = {'active_chores': active_chores, 'chores_to_vote_on': chores_to_vote_on}
 
 
 def user_signup(request):
@@ -22,7 +29,7 @@ def user_signup(request):
         name = request.POST['name']
         password = request.POST['password']
         user_model = get_user_model()
-        user_obj = user_model.objects.create_user(email=email, name=name)
+        user_obj = user_model.objects.create_user(email=email, username=name, password=password)
         user_obj.set_password(password)
         user_obj.save()
         user_auth = authenticate(username=email, password=password)
@@ -34,11 +41,13 @@ def user_signup(request):
 
 def user_login(request):
     if request.method == 'POST':
-        username = request.POST['username']
+        email = request.POST['username']
         password = request.POST['password']
-        user_auth = authenticate(username=username, password=password)
-        login(request, user_auth)
-        return redirect('Main_Page')
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            login(request, user)
+        else:
+            return redirect('Main_Page')
     else:
         return render(request, 'commune_app/login.html')
 
