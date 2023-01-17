@@ -54,6 +54,6 @@ class Commune(models.Model):
     def remove_user(self, user, requesting_user):
         if not requesting_user.is_superuser:
             raise PermissionDenied("Only the founder can perform this action.")
-        if user.commune_id != self:
+        if user.commune_id != self.commune_id:
             raise Exception("User is not a member of this commune")
         user.leave_commune()
