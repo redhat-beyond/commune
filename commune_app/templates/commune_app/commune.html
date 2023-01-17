@@ -11,12 +11,9 @@
         {% endfor %}
     </ul>
      {% block content %}
-                    {% for chore in Chores %}
-                        <h3>{{chore.title}} - Created at : {{chore.date}}</h3>
-                        <p>This is assigned to :{{chore.assign}}</p>
-                        <p>Budget: {{chore.budget}}</p>
-                        <p>{{chore.description}}</p>
-                    {% endfor %}
+                    {{ chores }}
+                    {{ user }}
+                    {{ user.username }}
     {% endblock content %}
 </main>
 <footer>
