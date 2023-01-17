@@ -5,7 +5,11 @@
     <div class="container-fluid text-center p-5">
         <h1 style="color:brown">Communes</h1>
     </div>
-    
+         {% block content %}
+                    {{ chores }}
+                    {{ user }}
+                    {{ user.username }}
+    {% endblock content %}
 </main>
 <footer>
     <div class="footer col-md-12 text-center ">
