@@ -34,9 +34,9 @@ def user_signup(request):
 
 def user_login(request):
     if request.method == 'POST':
-        email = request.POST['email']
+        username = request.POST['username']
         password = request.POST['password']
-        user_auth = authenticate(username=email, password=password)
+        user_auth = authenticate(username=username, password=password)
         login(request, user_auth)
         return redirect('Main_Page')
     else:
