@@ -86,7 +86,8 @@ class TestUserFunctions:
 
     def test_join_commune(self, user0, commune0):
         assert user0 not in User.objects.filter(commune_id=commune0)
-        assert user0.join_commune(commune0.id)
+        user0.join_commune(commune0.id)
+        assert user0.commune_id == Commune.objects.filter(id=commune0.id).first()
         assert user0 in User.objects.filter(commune_id=commune0)
 
     def test_leave_commune(self, user0, commune0):
@@ -97,10 +98,12 @@ class TestUserFunctions:
 
     def test_execute_chore(self, chore0, user0):
         assert not chore0.completed
-        chore0.execute_chore(user0.id)
-        assert chore0.completed
+        chore0.execute_chore(chore0.id, user0.id)
+        choren = Chore.objects.filter(id=chore0.id).first()
+        assert choren.completed
 
     def test_user_vote(self, chore1, user0):
         assert not chore1.passed
-        vote = Vote.create_new_vote(voting_user=user0, voted_chore=chore1, vote_bool=True)
+        Vote.create_new_vote(voting_user=user0, voted_chore=chore1, vote_bool=True)
+        vote = Vote.objects.filter(user=user0, chore=chore1).first()
         assert vote in Vote.objects.all()
