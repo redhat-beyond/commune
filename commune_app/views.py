@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login, logout
-
+from django.contrib import messages
 
 def main_page(request):
     return render(request, 'commune_app/index.html')
@@ -38,7 +38,8 @@ def user_login(request):
             login(request, user)
             return render(request, 'commune_app/commune.html')
         else:
-            return redirect('main_page')
+            messages.error(request, 'Invalid username or password')
+            return redirect('login')
     else:
         return render(request, 'commune_app/login.html')
 
