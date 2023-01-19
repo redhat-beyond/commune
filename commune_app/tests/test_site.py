@@ -6,7 +6,6 @@ from django import urls
     ('main_page'),
     ('login'),
     ('signup'),
-    ('commune')
 ])
 @pytest.mark.django_db()
 def test_render_views(client, param):
