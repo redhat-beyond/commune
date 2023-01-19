@@ -42,6 +42,8 @@ def commune(request):
     }
     return render(request, 'commune_app/commune.html', context)
 
+def chore(request):
+    return render(request, 'commune_app/chore.html')
 
 def chore(request):
     if request.method == 'POST':
