@@ -40,6 +40,7 @@ class Commune(models.Model):
     def create_commune(self, name, description, wallet):
         my_commune = Commune(name=name, description=description, wallet=wallet)
         my_commune.save()
+        return my_commune
     def add_user(self, user, requesting_user):
         if not requesting_user.is_superuser:
             raise PermissionDenied("Only the founder can perform this action.")
