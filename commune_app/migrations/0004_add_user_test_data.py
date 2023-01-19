@@ -26,7 +26,8 @@ class Migration(migrations.Migration):
 
         with transaction.atomic():
             for user_name, user_email, user_password, user_id in users_test_data:
-                user = User(username=user_name, email=user_email, password=user_password, id=user_id)
+                user = User(username=user_name, email=user_email, id=user_id)
+                user.set_password(user_password)
                 user.join_commune(commune_id=commune.id)
                 user.save()
 
