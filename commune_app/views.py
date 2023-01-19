@@ -49,7 +49,7 @@ def user_login(request):
         user = authenticate(request,username=username, password=password)
         if user is not None:
             login(request, user)
-            return render(request, 'commune')
+            return render(request, 'commune_app/commune.html')
         else:
             return redirect('logout')
     else:
@@ -57,4 +57,4 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('main_page')
+    return redirect(request,'main_page')
