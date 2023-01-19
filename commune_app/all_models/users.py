@@ -39,9 +39,14 @@ class User(AbstractUser):
 
     def join_commune(self, commune_id):
         if (self.commune_id is not None and self.commune_id != commune_id):
-            raise Exception("already partner in another commune")
-        self.commune_id = commune_id
+            raise Exception("already partner in the commune: " + self.commune_id.name)
+        self.commune_id_id = commune_id
+        self.save()
+        return True
 
     def leave_commune(self):
-        if (self.commune_id is not None):
+        if self.commune_id is None:
+            raise Exception("The user is NOT partner in any commune")
+        else:
             self.commune_id = None
+        self.save()
