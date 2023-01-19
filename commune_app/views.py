@@ -38,7 +38,6 @@ def user_signup(request):
     else:
         return render(request, 'commune_app/signup.html')
 
-def user_login(request):
 
 def user_login(request):
     if request.method == 'POST':
