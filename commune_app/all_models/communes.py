@@ -36,7 +36,8 @@ class Commune(models.Model):
         else:
             self.wallet -= budget
 
-    def create_commune(self, name, description, wallet):
+    @staticmethod
+    def create_commune(name, description, wallet):
         my_commune = Commune(name=name, description=description, wallet=wallet)
         my_commune.save()
         return my_commune
