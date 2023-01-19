@@ -3,14 +3,23 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
+from commune_app.all_models.chores import Chore, Commune
+
 
 def main_page(request):
     return render(request, 'commune_app/index.html')
 
 
 def commune(request):
-    users = get_user_model().objects.all()
-    context = {'users': users}
+    commune_id = request.user.commune_id.id
+    chores = Chore.objects.filter(commune_id=commune_id,passed=False)
+    active_chores = Chore.objects.filter(commune_id=commune_id,completed=False,passed=True)
+    chores_to_vote_on = Chore.objects.filter(commune_id=commune_id,completed=False,passed=False)
+    commune = Commune.objects.filter(id=commune_id).first()
+    commune_name = commune.name
+    wallet = commune.wallet
+    description = commune.description
+    context = {'active_chores': active_chores,'commune_name': commune_name, 'chores_to_vote_on': chores_to_vote_on, 'wallet': wallet, 'description': description}
     return render(request, 'commune_app/commune.html', context)
 
 
