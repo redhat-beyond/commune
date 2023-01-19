@@ -13,6 +13,8 @@ def commune(request):
     context = {'users': users}
     return render(request, 'commune_app/commune.html', context)
 
+def chore(request):
+    return render(request, 'commune_app/chore.html')
 
 def user_signup(request):
     if request.method == 'POST':
