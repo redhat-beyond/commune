@@ -30,6 +30,7 @@
             {% if request.user.is_authenticated %}
                 <li class="nav-item"><a href="{% url 'commune' %}" class="nav-link active text-white">Communes</a></li>
                 <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link active text-white">Logout {{ request.user.username }}</a></li>
+                <li class="nav-item"><a href="{% url 'create_commune' %}" class="nav-link active text-white">Create a Commune</a></li>
             {% endif %}
             </ul>
         </div>
