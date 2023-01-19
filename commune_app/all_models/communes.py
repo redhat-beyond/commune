@@ -1,8 +1,9 @@
 from django.db import models
+from django.core.exceptions import PermissionDenied
 
 
 def validate_wallet(wallet):
-    if (wallet < 0):
+    if wallet < 0:
         raise Exception("negative wallet balance")
 
 
@@ -26,12 +27,32 @@ class Commune(models.Model):
         return super().save(*args, **kwargs)
 
     def wallet_charge(self, budget):
-        '''
+        """
         set wallet balance:
         To make a charge that will be deducted from the balance enter a positive,
         Enter a negative number for the wallet credit.
-        '''
-        if (self.wallet < budget):
+        """
+        if self.wallet < budget:
             raise Exception("will enter negative balance")
         else:
             self.wallet -= budget
+
+    def create_commune(self, name, description, wallet):
+        my_commune = Commune(name=name, description=description, wallet=wallet)
+        my_commune.save()
+        return my_commune
+
+    def add_user(self, user, requesting_user):
+        if not requesting_user.is_superuser:
+            raise PermissionDenied("Only the founder can perform this action.")
+        if user.commune_id is not None:
+            raise Exception("User is already a member of another commune")
+        user.join_commune(self)
+        self.users.add(user)
+
+    def remove_user(self, user, requesting_user):
+        if not requesting_user.is_superuser:
+            raise PermissionDenied("Only the founder can perform this action.")
+        if user.commune_id != self:
+            raise Exception("User is not a member of this commune")
+        user.leave_commune()

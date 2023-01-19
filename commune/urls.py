@@ -19,12 +19,14 @@ from commune_app import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.main_page, name='Main_Page'),
+    path('', views.main_page, name='main_page'),
     path('commune/', views.commune, name="commune"),
     path('login/', views.user_login, name="login"),
     path('signup/', views.user_signup, name="signup"),
+    path('logout/', views.user_logout, name='logout')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
