@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
+
 def main_page(request):
     return render(request, 'commune_app/index.html')
 
