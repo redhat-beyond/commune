@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
         from ..all_models.communes import Commune
 
         chores_test_data = [
-            ('testChore1', 'discription 1', 100, False, False),
-            ('testChore2', 'discription 2', 200, False, False),
-            ('testChore3', 'discription 3', 300, True, False),
-            ('testChore4', 'discription 4', 400, True, False),
-            ('testChore5', 'discription 5', 500, True, True),
+            ('testChore1', 'description 1', 100, False, False),
+            ('testChore2', 'description 2', 200, False, False),
+            ('testChore3', 'description 3', 300, True, False),
+            ('testChore4', 'description 4', 400, True, False),
+            ('testChore5', 'description 5', 500, True, True),
         ]
 
         user = User.objects.get(id=1)
