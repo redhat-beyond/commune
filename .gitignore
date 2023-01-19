@@ -133,3 +133,9 @@ dmypy.json
  
 # DS_Store 
 .DS_Store
+
+# PyCharm
+.idea/
+
+# Running script
+reload.ps1
