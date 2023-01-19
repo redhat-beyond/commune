@@ -5,37 +5,25 @@ from .models import Chore, Commune
 
 
 def main_page(request):
-    # communes = Commune.objects.all()
-    # context = {'communes': communes}
-    # return redirect('commune_app/index.html')
     return render(request, 'commune_app/index.html')
 
 
 def commune(request):
     users = get_user_model().objects.all()
     context = {'users': users}
-#     commune_id = request.user.commune_id
-#     chores = Chore.objects.filter(commune_id=commune_id,passed=False)
-#     context = {'chores': chores}
     return render(request, 'commune_app/commune.html', context)
-    # active_chores = Chore.objects.filter(commune_id=commune_id,completed=False,passed=True)
-    # commune = Commune.objects.filter(id=commune_id).first()
-    # wallet = commune.wallet
-    # description = commune.description
-    # context = {'active_chores': active_chores, 'chores_to_vote_on': chores_to_vote_on, 'wallet': wallet, 'description': description}
-    # context = {'active_chores': active_chores, 'chores_to_vote_on': chores_to_vote_on}
 
 
 def user_signup(request):
     if request.method == 'POST':
+        username = request.POST['username']
         email = request.POST['email']
-        name = request.POST['name']
         password = request.POST['password']
         user_model = get_user_model()
-        user_obj = user_model.objects.create_user(email=email, username=name, password=password)
+        user_obj = user_model.objects.create_user(username=username, password=password,email=email)
         user_obj.set_password(password)
         user_obj.save()
-        user_auth = authenticate(username=email, password=password)
+        user_auth = authenticate(username=username, password=password)
         login(request, user_auth)
         return redirect('main_page')
     else:
@@ -51,10 +39,10 @@ def user_login(request):
             login(request, user)
             return render(request, 'commune_app/commune.html')
         else:
-            return redirect('logout')
+            return redirect('main_page')
     else:
-        return render(request, 'registration/login.html')
+        return render(request, 'commune_app/login.html')
 
 def user_logout(request):
     logout(request)
-    return redirect(request,'main_page')
+    return redirect('main_page')
