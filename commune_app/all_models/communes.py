@@ -1,6 +1,5 @@
 from django.db import models
 from django.core.exceptions import PermissionDenied
-from django.conf import settings
 
 
 def validate_wallet(wallet):
