@@ -3,7 +3,7 @@ from django import urls
 
 
 @pytest.mark.parametrize('param', [
-    ('Main_Page'),
+    ('main_page'),
     ('login'),
     ('signup'),
     ('commune')
