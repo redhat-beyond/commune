@@ -9,7 +9,7 @@ DESCRIPTION3 = "Say no to violence"
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('commune_app', '0003_createsuperuser'),
+        ('commune_app', '0002_createsuperuser'),
     ]
 
     def generate_commune_test_data(apps, schema_editor):
