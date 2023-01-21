@@ -43,14 +43,14 @@ class Commune(models.Model):
 
     def add_user(self, user, requesting_user):
         if not requesting_user.is_superuser:
-            raise PermissionDenied("Only the founder can perform this action.")
+            raise Exception("Only the founder can perform this action.")
         if user.commune_id is not None:
             raise Exception("User is already a member of another commune")
         user.join_commune(self)
 
     def remove_user(self, user, requesting_user):
         if not requesting_user.is_superuser:
-            raise PermissionDenied("Only the founder can perform this action.")
+            raise Exception("Only the founder can perform this action.")
         if user.commune_id != self:
             raise Exception("User is not a member of this commune")
         user.leave_commune()
