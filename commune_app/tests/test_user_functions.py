@@ -13,6 +13,7 @@ ID0 = 123456789
 
 NAME0 = "test_commune"
 DESCRIPTION0 = "this is a description for test coomune"
+COMMUNE_ID = 4222
 
 TITLE = "Gardener"
 DATE = (2000, 1, 15)
@@ -43,7 +44,7 @@ def user0(commune0):
 @pytest.fixture
 @pytest.mark.django_db()
 def commune0():
-    commune0 = Commune(name=NAME0, description=DESCRIPTION0)
+    commune0 = Commune(name=NAME0, description=DESCRIPTION0, id=COMMUNE_ID)
     commune0.save()
     return commune0
 
@@ -96,6 +97,7 @@ class TestUserFunctions:
         assert user0 not in User.objects.filter(commune_id=commune0)
 
     def test_execute_chore(self, chore0, user0):
+        user0.join_commune(COMMUNE_ID)
         assert not chore0.completed
         chore0.execute_chore(chore0.id, user0.id)
         choren = Chore.objects.filter(id=chore0.id).first()
