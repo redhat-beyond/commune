@@ -28,7 +28,7 @@ NOT_PASSED = False
 
 @pytest.fixture
 @pytest.mark.django_db()
-def user0():
+def user0(commune0):
     user0 = User(
         username=USER_NAME0,
         password=PASSWORD0,
@@ -101,9 +101,9 @@ class TestUserFunctions:
         chore0.execute_chore(chore0.id, user0.id)
         choren = Chore.objects.filter(id=chore0.id).first()
         assert choren.completed
-
-    def test_user_vote(self, chore1, user0):
+    def test_user_vote(self, chore1, user0,commune0):
         assert not chore1.passed
+        user0.join_commune(commune0.id)
         Vote.create_new_vote(voting_user=user0, voted_chore=chore1, vote_bool=True)
         vote = Vote.objects.filter(user=user0, chore=chore1).first()
         assert vote in Vote.objects.all()
