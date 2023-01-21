@@ -1,11 +1,9 @@
 from django.db import models
-from .chores import Chore
-from .users import User
 
 
 class Vote(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    chore = models.ForeignKey(Chore, on_delete=models.CASCADE)
+    user = models.ForeignKey('commune_app.User', on_delete=models.CASCADE)
+    chore = models.ForeignKey('commune_app.Chore', on_delete=models.CASCADE)
     approve = models.BooleanField(default=False)
 
     # creates a new vote while checking if the related Chore can be passed or not
