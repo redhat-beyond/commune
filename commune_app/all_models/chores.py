@@ -35,8 +35,12 @@ class Chore(models.Model):
     @staticmethod
     def execute_chore(chore_id, user_id):
         chore = Chore.objects.filter(id=chore_id).first()
+        user = User.objects.filter(id=user_id).first()
         if chore.passed and chore.assign_to.id == user_id:
             chore = Chore.objects.filter(id=chore_id).first()
             chore.completed = True
             chore.save()
+            commune = Commune.objects.filter(id=user.commune_id.id).first()
+            commune.wallet_charge(chore.budget)
+            commune.save()
         return chore.completed

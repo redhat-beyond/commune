@@ -101,7 +101,7 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return render(request, 'commune_app/commune.html')
+            return render(request, 'commune_app/index.html')
         else:
             messages.error(request, 'Invalid username or password')
             return redirect('login')
@@ -143,3 +143,12 @@ def create_commune(request):
         return redirect('main_page')
     else:
         return render(request, 'commune_app/create_commune.html')
+
+def do_chore(request):
+    if request.method == 'POST':
+        chore_id = request.POST['chore_id']
+        chore = Chore.get_chore(chore_id)
+        chore.execute_chore(chore_id=chore_id, user_id=request.user.id)
+        return redirect('commune')
+    else:
+        return redirect('commune')

@@ -33,6 +33,7 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('vote/', views.vote, name='vote'),
     path('create_commune/', views.create_commune, name="create_commune"),
+    path('do_chore/', views.do_chore, name="do_chore")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
