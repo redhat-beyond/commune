@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from commune_app.all_models.chores import Chore
 
 
 def main_page(request):
@@ -12,6 +13,7 @@ def commune(request):
     users = get_user_model().objects.all()
     context = {'users': users}
     return render(request, 'commune_app/commune.html', context)
+
 
 def chore(request):
     if request.method == 'POST':
