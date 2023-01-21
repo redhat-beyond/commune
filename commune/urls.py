@@ -31,6 +31,7 @@ urlpatterns = [
     path('vote/', views.vote, name='vote')
     path('logout/', views.user_logout, name='logout')
     path('logout/', views.user_logout, name='logout'),
+    path('vote/', views.vote, name='vote'),
     path('create_commune/', views.create_commune, name="create_commune"),
 ]
 

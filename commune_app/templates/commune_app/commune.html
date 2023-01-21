@@ -3,41 +3,54 @@
 {% block body %}
     <main>
         <div class="container-fluid text-center p-5">
-            <h1 style="color:brown;">{{commune_name}}</h1>
+            <h1 style="color:brown;">{{ commune_name }}</h1>
         </div>
         <div class="container">
             <div class="row">
                 {% block content %}
-                <h3 style="color:red;">Our Purpose: </h3>
-                <p>{{description}}</p>
-                <br>
-                <br>
-                <br>
-                <h3 style="color:red;">Net Worth</h3>
-                <p>As in 2023 our net worth is estimated to be around {{wallet}}$</p>
-                <br>
-                <br>
-                <br>
-                <h3 class="text-center" style="color:red;">Available Chores</h3>
-                {% for chore in active_chores %}
-                        <h4 style="color:brown;">{{chore.title}}</h4>
-                        <p>Description : {{chore.description}}</p>
-                        <p>Created at : {{chore.date}}</p>
-                        <p>This is assigned to :{{chore.assign}}</p>
-                        <p>Budget: {{chore.budget}}</p>
-                        <p>id : {{ chore.id }}</p>
-                        <hr>
-                {% endfor %}
-                <br>
-                <br>
-                <br>
-                <h3 class="text-center" style="color:red;">Chores still in progress..</h3>
-                {% for chore,yes,no,voted,c_id in chores_to_vote_on %}
-                        <h4 style="color:brown;">{{chore.title}}</h4>
-                        <p>Description : {{chore.description}}</p>
-                        <p>Created at : {{chore.date}}</p>
-                        <p>This is assigned to :{{chore.assign}}</p>
-                        <p>Budget: {{chore.budget}}</p>
+                    <h3 style="color:red;">Our Purpose: </h3>
+                    <p>{{ description }}</p>
+                    <br>
+                    <br>
+                    <br>
+                    <h3 style="color:red;">Net Worth</h3>
+                    <p>As in 2023 our net worth is estimated to be around {{ wallet }}$</p>
+                    <br>
+                    <br>
+                    <br>
+                    <h3 class="text-center" style="color:red;">Available Chores</h3>
+                    <div class="carousel slide" id="active_chores_carousel" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for chore in active_chores %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <h4 style="color:brown;">{{ chore.title }}</h4>
+                                    <p>Description: {{ chore.description }}</p>
+                                    <p>Created at: {{ chore.date }}</p>
+                                    <p>Assigned to: {{ chore.assign }}</p>
+                                    <p>Budget: {{ chore.budget }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <a class="carousel-control-prev" href="#active_chores_carousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#active_chores_carousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                    <br>
+                    <br>
+                    <br>
+                    <h3 class="text-center" style="color:red;">Chores still in progress..</h3>
+                    {% for chore,yes,no,voted,c_id in chores_to_vote_on %}
+                        <h4 style="color:brown;">{{ chore.title }}</h4>
+                        <p>Description : {{ chore.description }}</p>
+                        <p>Created at : {{ chore.date }}</p>
+                        <p>This is assigned to :{{ chore.assign }}</p>
+                        <p>Budget: {{ chore.budget }}</p>
                         <br>
                         <div class="d-flex mx-1 mb-1 mb-lg-1">
                             {% if voted %}
@@ -45,21 +58,25 @@
                             {% else %}
                                 <form action="{% url 'vote' %}" method="POST">
                                     {% csrf_token %}
-                                    <button type="submit" name="yes"  value="{{chore.id}}" class="btn btn-success mx-1">Yes</button>
+                                    <button type="submit" name="yes" value="{{ chore.id }}"
+                                            class="btn btn-success mx-1">Yes
+                                    </button>
                                 </form>
                                 <form action="{% url 'vote' %}" method="POST">
                                     {% csrf_token %}
-                                    <button type="submit" name="no" value="{{chore.id}}" class="btn btn-success mx-1">No</button>
+                                    <button type="submit" name="no" value="{{ chore.id }}" class="btn btn-success mx-1">
+                                        No
+                                    </button>
                                 </form>
                             {% endif %}
                             <p class="m-2">Amount of votes in favor:{{ yes }}</p>
                             <p class="m-2">Amount of votes against:{{ no }}</p>
                         </div>
                         <hr>
-                {% endfor %}
-                <br>
-                <br>
-                <br>
+                    {% endfor %}
+                    <br>
+                    <br>
+                    <br>
                 {% endblock content %}
             </div>
         </div>
