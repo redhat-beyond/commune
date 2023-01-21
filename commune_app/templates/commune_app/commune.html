@@ -13,34 +13,36 @@
                     <br>
                     <br>
                     <br>
-                    <h3 style="color:red;">Net Worth</h3>
-                    <p>As in 2023 our net worth is estimated to be around {{ wallet }}$</p>
+                    <h3 style="color:red;">Commune wallet</h3>
+                    <p>Available funds: {{ wallet }}$</p>
                     <br>
                     <br>
                     <br>
                     <h3 class="text-center" style="color:red;">Available Chores</h3>
-                    <div class="carousel slide" id="active_chores_carousel" data-ride="carousel">
-                        <div class="carousel-inner">
-                            {% for chore in active_chores %}
-                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                    <h4 style="color:brown;">{{ chore.title }}</h4>
-                                    <p>Description: {{ chore.description }}</p>
-                                    <p>Created at: {{ chore.date }}</p>
-                                    <p>Assigned to: {{ chore.assign }}</p>
-                                    <p>Budget: {{ chore.budget }}</p>
-                                </div>
-                            {% endfor %}
+                    {% for chore in active_chores %}
+                        <h4 style="color:brown;">{{ chore.title }}</h4>
+                        <p>Description : {{ chore.description }}</p>
+                        <p>Created at : {{ chore.date }}</p>
+                        <p>This is assigned to :{{ chore.assign }}</p>
+                        <p>Budget: {{ chore.budget }}</p>
+                        <p>id : {{ chore.id }}</p>
+                        <br></br>
+                        <div class="d-flex mx-1 mb-1 mb-lg-1">
+                            {% if  chore.completed %}
+                                <p> Chore Done</p>
+                            {% else %}
+                                {% if  chore.assign_to  ==  user %}
+                                    <form action="{% url 'do_chore' %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" name="chore_id" value="{{ chore.id }}"
+                                                class="btn btn-success mx-1">Mark as Done</button>
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            {% endif %}
                         </div>
-                        <a class="carousel-control-prev" href="#active_chores_carousel" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#active_chores_carousel" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
 
+                    {% endfor %}
                     <br>
                     <br>
                     <br>
@@ -54,7 +56,7 @@
                         <br>
                         <div class="d-flex mx-1 mb-1 mb-lg-1">
                             {% if voted %}
-                                <p class="mx-1">You have already voted</p>
+                                <p class="mx-1" style="color:green;">You have already voted</p>
                             {% else %}
                                 <form action="{% url 'vote' %}" method="POST">
                                     {% csrf_token %}
@@ -81,12 +83,11 @@
             </div>
         </div>
     </main>
-    <div class="d-flex flex-column h-50">
-        <div class="flex-grow-1"></div>
-        <footer><div class="footer col-md-12 text-center">
-            <span>Copyright@ 2022 Communet | ALL Rights Reserved.</span>
-        </div></footer>
-    </div>
+    <footer>
+        <div class="footer col-md-12 text-center ">
+            <span>Copyright @2022 Communet | ALL Rights Reserved.</span>
+        </div>
+    </footer>
     <script src="script.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
