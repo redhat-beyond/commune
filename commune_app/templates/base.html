@@ -32,9 +32,9 @@
                 <li class="nav-item"><a href="{% url 'commune' %}" class="nav-link active text-white">Communes</a></li>
                 <li class="nav-item"><a href="{% url 'chore' %}" class="nav-link active text-white">Chore</a></li>
                 <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link active text-white">Logout {{ request.user.username }}</a></li>
+                <li class="nav-item"><a href="{% url 'create_commune' %}" class="nav-link active text-white">Create a Commune</a></li>
             {% else %}
                     <li class="nav-item"><a href="{% url 'login' %}" class="nav-link active text-white">Log In</a></li>
-                <li class="nav-item"><a href="{% url 'create_commune' %}" class="nav-link active text-white">Create a Commune</a></li>
             {% endif %}
             </ul>
         </div>

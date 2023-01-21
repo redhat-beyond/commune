@@ -5,9 +5,9 @@
     <section class="create_commune">
         <div class="container">
           <div class="row">
-            <div class="row justify-content-center col-md-4 offset-md-4 my-5 pt-3 pb-5 text-center col-sm-12 col-xs-12">
+            <div class="row justify-content-center col-md-4 offset-md-4 my-4 pt-5 text-center col-sm-12 col-xs-12">
 
-                <div class="m-0 p-3"><h1 style="color:brown">Create a commune</h1></div>
+                <div class="m-0 p-3 mb-2"><h1 style="color:brown">Create New Commune</h1></div>
 
                 <form method="post">{% csrf_token %}
                     <div class="d-flex flex-row align-items-center mb-1">
@@ -24,7 +24,7 @@
                     
 
                     <div class="d-flex mx-1 mb-1 mb-lg-1">
-                        <button type="submit" class="btn btn-primary btn-md">Create Commune</button>
+                        <button type="submit" class="btn btn-primary btn-md">Submit</button>
                     </div>
                 </form>
                 
@@ -33,11 +33,13 @@
         </div>
     </section>
 </main>
-<footer>
-    <div class="footer col-md-12 text-center">
-      <span>Copyright@ 2022 Communet | ALL Rights Reserved.</span>
-    </div>
-</footer>
+<div class="d-flex flex-column h-50">
+    <div class="flex-grow-1"></div>
+    <footer><div class="footer col-md-12 text-center">
+        <span>Copyright@ 2022 Communet | ALL Rights Reserved.</span>
+    </div></footer>
+</div>
+
 <script src="script.js"></script>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

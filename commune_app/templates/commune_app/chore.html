@@ -7,9 +7,9 @@
             <div class="container">
 
                 <div class="row">
-                    <div class="row justify-content-center col-md-4 offset-md-4 my-5 pt-3 pb-5 text-center col-sm-12 col-xs-12">
+                    <div class="row justify-content-center col-md-4 offset-md-4 my-5 pt-5 pb-5 text-center col-sm-12 col-xs-12">
 
-                        <div class="m-0 p-3"><h1 style="color:brown">Chore</h1></div>
+                        <div class="m-0 p-3"><h1 style="color:brown">Create New Chore:</h1></div>
                         {% if messages %}
                             {% for message in messages %}
                                 <p style="color: red; "> {{ message }} </p>
@@ -56,11 +56,12 @@
             </div>
         </section>
     </main>
-    <footer>
-        <div class="footer col-md-12 text-center ">
-            <span>Copyright @2022 Communet | ALL Rights Reserved.</span>
-        </div>
-    </footer>
+    <div class="d-flex flex-column h-50">
+        <div class="flex-grow-1"></div>
+        <footer><div class="footer col-md-12 text-center">
+            <span>Copyright@ 2022 Communet | ALL Rights Reserved.</span>
+        </div></footer>
+    </div>
     <script src="script.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
