@@ -14,7 +14,19 @@ def commune(request):
     return render(request, 'commune_app/commune.html', context)
 
 def chore(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        description = request.POST['description']
+        date = request.POST['date']
+        assign_to = request.POST['assign_to']
+        budget = request.POST['budget']
+        commune_id = request.POST['commune_id']
+        new_chore = Chore.create_chore(title=title, description=description, date=date, assign_to=assign_to,
+                                       budget=budget, commune_id=commune_id)
+        new_chore.save()
+        return redirect('commune')
     return render(request, 'commune_app/chore.html')
+
 
 def user_signup(request):
     if request.method == 'POST':

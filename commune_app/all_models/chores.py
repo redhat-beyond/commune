@@ -16,6 +16,15 @@ class Chore(models.Model):
     def __str__(self):
         return self.title
 
+    @staticmethod
+    def create_chore(title, description, budget, assign_to, commune_id, date):
+        user = User.objects.get(id=assign_to)
+        commune = Commune.objects.get(id=commune_id)
+        chore = Chore(title=title, description=description, budget=budget, assign_to=user, commune_id=commune,
+                      date=date, passed=False, completed=False)
+        chore.save()
+        return chore
+
     def description_snippet(self):
         return self.description[:50] + '...'
 
