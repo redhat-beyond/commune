@@ -149,6 +149,4 @@ def do_chore(request):
         chore_id = request.POST['chore_id']
         chore = Chore.get_chore(chore_id)
         chore.execute_chore(chore_id=chore_id, user_id=request.user.id)
-        return redirect('commune')
-    else:
-        return redirect('commune')
+    return redirect('commune')
