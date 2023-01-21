@@ -6,6 +6,8 @@ from django.apps import apps
 
 Chore = apps.get_model('commune_app', 'Chore')
 Commune = apps.get_model('commune_app', 'Commune')
+Vote = apps.get_model('commune_app', 'Vote')
+
 
 def main_page(request):
     return render(request, 'commune_app/index.html')
@@ -59,8 +61,6 @@ def commune(request):
     }
     return render(request, 'commune_app/commune.html', context)
 
-def chore(request):
-    return render(request, 'commune_app/chore.html')
 
 def chore(request):
     if request.method == 'POST':
