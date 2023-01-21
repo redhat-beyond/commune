@@ -24,6 +24,8 @@ def get_no_votes_for_chore(chore_id):
 
 def has_voted(user_id, chore_id):
     return len(Vote.objects.filter(user_id=user_id, chore_id=chore_id)) > 0
+
+
 def commune(request):
     commune_id = request.user.commune_id.id
     active_chores = Chore.objects.filter(commune_id=commune_id, completed=False, passed=True)
@@ -131,6 +133,4 @@ def do_chore(request):
         chore_id = request.POST['chore_id']
         chore = Chore.get_chore(chore_id)
         chore.execute_chore(chore_id=chore_id, user_id=request.user.id)
-        return redirect('commune')
-    else:
-        return redirect('commune')
+    return redirect('commune')

@@ -19,4 +19,3 @@ class Vote(models.Model):
             if num_of_yes_votes > num_of_no_votes:
                 voted_chore.passed = True
                 voted_chore.save()
-
