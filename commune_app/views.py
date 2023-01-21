@@ -7,7 +7,6 @@ from django.apps import apps
 Chore = apps.get_model('commune_app', 'Chore')
 Commune = apps.get_model('commune_app', 'Commune')
 
-
 def main_page(request):
     return render(request, 'commune_app/index.html')
 
@@ -143,6 +142,7 @@ def create_commune(request):
         return redirect('main_page')
     else:
         return render(request, 'commune_app/create_commune.html')
+
 
 def do_chore(request):
     if request.method == 'POST':

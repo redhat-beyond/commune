@@ -3,6 +3,7 @@ from commune_app.all_models.users import User
 from commune_app.all_models.chores import Chore
 from commune_app.all_models.votes import Vote
 from django.apps import apps
+
 Commune = apps.get_model('commune_app', 'Commune')
 
 COMMUNE_NAME = 'test_commune'
@@ -42,6 +43,8 @@ CHORE_DESCRIPTION = "Clean the Dishes"
 CHORE_ASSIGN = "Elias"
 CHORE_PASSED = False
 CHORE_COMPLETED = False
+
+
 @pytest.fixture
 def commune1():
     commune1 = Commune(

@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 
-
 class Vote(models.Model):
     user = models.ForeignKey('commune_app.User', on_delete=models.CASCADE)
     chore = models.ForeignKey('commune_app.Chore', on_delete=models.CASCADE)

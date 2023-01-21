@@ -4,7 +4,6 @@ from commune_app.all_models.communes import Commune
 from commune_app.all_models.chores import Chore
 from commune_app.all_models.votes import Vote
 
-
 USER_NAME0 = "user0"
 PASSWORD0 = "123456"
 FIRST_NAME0 = "user"
@@ -36,7 +35,7 @@ def user0(commune0):
         first_name=FIRST_NAME0,
         last_name=LAST_NAME0,
         email=EMAIL0
-        )
+    )
     user0.save()
     return user0
 
@@ -60,7 +59,7 @@ def chore0(user0):
         assign_to=user0,
         passed=PASSED,
         completed=COMPLETED
-        )
+    )
     chore0.save()
     return chore0
 
@@ -76,7 +75,7 @@ def chore1(user0):
         assign_to=user0,
         passed=NOT_PASSED,
         completed=COMPLETED
-        )
+    )
     chore1.save()
     return chore1
 
@@ -101,7 +100,8 @@ class TestUserFunctions:
         chore0.execute_chore(chore0.id, user0.id)
         choren = Chore.objects.filter(id=chore0.id).first()
         assert choren.completed
-    def test_user_vote(self, chore1, user0,commune0):
+
+    def test_user_vote(self, chore1, user0, commune0):
         assert not chore1.passed
         user0.join_commune(commune0.id)
         Vote.create_new_vote(voting_user=user0, voted_chore=chore1, vote_bool=True)
