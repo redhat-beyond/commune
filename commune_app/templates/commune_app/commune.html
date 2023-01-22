@@ -3,63 +3,82 @@
 {% block body %}
     <main>
         <div class="container-fluid text-center p-5">
-            <h1 style="color:brown;">{{commune_name}}</h1>
+            <h1 style="color:brown;">{{ commune_name }}</h1>
         </div>
         <div class="container">
             <div class="row">
                 {% block content %}
-                <h3 style="color:red;">Our Purpose: </h3>
-                <p>{{description}}</p>
-                <br>
-                <br>
-                <br>
-                <h3 style="color:red;">Net Worth</h3>
-                <p>As in 2023 our net worth is estimated to be around {{wallet}}$</p>
-                <br>
-                <br>
-                <br>
-                <h3 class="text-center" style="color:red;">Available Chores</h3>
-                {% for chore in active_chores %}
-                        <h4 style="color:brown;">{{chore.title}}</h4>
-                        <p>Description : {{chore.description}}</p>
-                        <p>Created at : {{chore.date}}</p>
-                        <p>This is assigned to :{{chore.assign}}</p>
-                        <p>Budget: {{chore.budget}}</p>
+                    <h3 style="color:red;">Our Purpose: </h3>
+                    <p>{{ description }}</p>
+                    <br>
+                    <br>
+                    <br>
+                    <h3 style="color:red;">Commune wallet</h3>
+                    <p>Available funds: {{ wallet }}$</p>
+                    <br>
+                    <br>
+                    <br>
+                    <h3 class="text-center" style="color:red;">Available Chores</h3>
+                    {% for chore in active_chores %}
+                        <h4 style="color:brown;">{{ chore.title }}</h4>
+                        <p>Description : {{ chore.description }}</p>
+                        <p>Created at : {{ chore.date }}</p>
+                        <p>This is assigned to :{{ chore.assign }}</p>
+                        <p>Budget: {{ chore.budget }}</p>
                         <p>id : {{ chore.id }}</p>
-                        <hr>
-                {% endfor %}
-                <br>
-                <br>
-                <br>
-                <h3 class="text-center" style="color:red;">Chores still in progress..</h3>
-                {% for chore,yes,no,voted,c_id in chores_to_vote_on %}
-                        <h4 style="color:brown;">{{chore.title}}</h4>
-                        <p>Description : {{chore.description}}</p>
-                        <p>Created at : {{chore.date}}</p>
-                        <p>This is assigned to :{{chore.assign}}</p>
-                        <p>Budget: {{chore.budget}}</p>
+                        <br></br>
+                        <div class="d-flex mx-1 mb-1 mb-lg-1">
+                            {% if  chore.completed %}
+                                <p> Chore Done</p>
+                            {% else %}
+                                {% if  chore.assign_to  ==  user %}
+                                    <form action="{% url 'do_chore' %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" name="chore_id" value="{{ chore.id }}"
+                                                class="btn btn-success mx-1">Mark as Done</button>
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+
+                    {% endfor %}
+                    <br>
+                    <br>
+                    <br>
+                    <h3 class="text-center" style="color:red;">Chores still in progress..</h3>
+                    {% for chore,yes,no,voted,c_id in chores_to_vote_on %}
+                        <h4 style="color:brown;">{{ chore.title }}</h4>
+                        <p>Description : {{ chore.description }}</p>
+                        <p>Created at : {{ chore.date }}</p>
+                        <p>This is assigned to :{{ chore.assign }}</p>
+                        <p>Budget: {{ chore.budget }}</p>
                         <br>
                         <div class="d-flex mx-1 mb-1 mb-lg-1">
                             {% if voted %}
-                                <p class="mx-1">You have already voted</p>
+                                <p class="mx-1" style="color:green;">You have already voted</p>
                             {% else %}
                                 <form action="{% url 'vote' %}" method="POST">
                                     {% csrf_token %}
-                                    <button type="submit" name="yes"  value="{{chore.id}}" class="btn btn-success mx-1">Yes</button>
+                                    <button type="submit" name="yes" value="{{ chore.id }}"
+                                            class="btn btn-success mx-1">Yes
+                                    </button>
                                 </form>
                                 <form action="{% url 'vote' %}" method="POST">
                                     {% csrf_token %}
-                                    <button type="submit" name="no" value="{{chore.id}}" class="btn btn-success mx-1">No</button>
+                                    <button type="submit" name="no" value="{{ chore.id }}" class="btn btn-success mx-1">
+                                        No
+                                    </button>
                                 </form>
                             {% endif %}
                             <p class="m-2">Amount of votes in favor:{{ yes }}</p>
                             <p class="m-2">Amount of votes against:{{ no }}</p>
                         </div>
                         <hr>
-                {% endfor %}
-                <br>
-                <br>
-                <br>
+                    {% endfor %}
+                    <br>
+                    <br>
+                    <br>
                 {% endblock content %}
             </div>
         </div>

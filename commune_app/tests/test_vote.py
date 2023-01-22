@@ -2,8 +2,14 @@ import pytest
 from commune_app.all_models.users import User
 from commune_app.all_models.chores import Chore
 from commune_app.all_models.votes import Vote
+from django.apps import apps
 
+Commune = apps.get_model('commune_app', 'Commune')
 
+COMMUNE_NAME = 'test_commune'
+COMMUNE_DESCRIPTION = 'test_commune_description'
+COMMUNE_WALLET = 100
+COMMUNE_ID = 4222
 USER_NAME0 = "user0"
 PASSWORD0 = "123456"
 FIRST_NAME0 = "user"
@@ -40,7 +46,19 @@ CHORE_COMPLETED = False
 
 
 @pytest.fixture
-def user0():
+def commune1():
+    commune1 = Commune(
+        name=COMMUNE_NAME,
+        description=COMMUNE_DESCRIPTION,
+        wallet=COMMUNE_WALLET,
+        id=COMMUNE_ID
+    )
+    commune1.save()
+    return commune1
+
+
+@pytest.fixture
+def user0(commune1):
     user0 = User(
         username=USER_NAME0,
         password=PASSWORD0,
@@ -48,12 +66,13 @@ def user0():
         first_name=FIRST_NAME0,
         last_name=LAST_NAME0,
         email=EMAIL0)
+    user0.join_commune(commune_id=COMMUNE_ID)
     user0.save()
     return user0
 
 
 @pytest.fixture
-def user1():
+def user1(commune1):
     user1 = User(
         username=USER_NAME1,
         password=PASSWORD1,
@@ -61,12 +80,13 @@ def user1():
         first_name=FIRST_NAME1,
         last_name=LAST_NAME1,
         email=EMAIL1)
+    user1.join_commune(commune_id=COMMUNE_ID)
     user1.save()
     return user1
 
 
 @pytest.fixture
-def user2():
+def user2(commune1):
     user2 = User(
         username=USER_NAME,
         password=PASSWORD,
@@ -74,6 +94,7 @@ def user2():
         first_name=FIRST_NAME,
         last_name=LAST_NAME,
         email=EMAIL)
+    user2.join_commune(commune_id=COMMUNE_ID)
     user2.save()
     return user2
 

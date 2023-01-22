@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.exceptions import PermissionDenied
 
 
 def validate_wallet(wallet):
@@ -37,22 +36,22 @@ class Commune(models.Model):
         else:
             self.wallet -= budget
 
-    def create_commune(self, name, description, wallet):
+    @staticmethod
+    def create_commune(name, description, wallet):
         my_commune = Commune(name=name, description=description, wallet=wallet)
         my_commune.save()
         return my_commune
 
     def add_user(self, user, requesting_user):
         if not requesting_user.is_superuser:
-            raise PermissionDenied("Only the founder can perform this action.")
+            raise Exception("Only the founder can perform this action.")
         if user.commune_id is not None:
             raise Exception("User is already a member of another commune")
         user.join_commune(self)
-        self.users.add(user)
 
     def remove_user(self, user, requesting_user):
         if not requesting_user.is_superuser:
-            raise PermissionDenied("Only the founder can perform this action.")
+            raise Exception("Only the founder can perform this action.")
         if user.commune_id != self.commune_id:
             raise Exception("User is not a member of this commune")
         user.leave_commune()

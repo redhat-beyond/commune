@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from commune_app.all_models.communes import Commune
+from commune_app.all_models.votes import Vote
 
 
 def validate_email_addr(email):
@@ -39,14 +40,14 @@ class User(AbstractUser):
 
     def join_commune(self, commune_id):
         if (self.commune_id is not None and self.commune_id != commune_id):
-            raise Exception("already partner in the commune: " + self.commune_id.name)
-        self.commune_id_id = commune_id
+            raise Exception("already partner in another commune")
+        self.commune_id = Commune.objects.filter(id=commune_id).first()
         self.save()
-        return True
 
     def leave_commune(self):
-        if self.commune_id is None:
-            raise Exception("The user is NOT partner in any commune")
-        else:
+        if (self.commune_id is not None):
             self.commune_id = None
         self.save()
+
+    def vote(self, chore_id, decision):
+        Vote.create_new_vote(voting_user=self.id, voted_chore=chore_id, vote_bool=decision)

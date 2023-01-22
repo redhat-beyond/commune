@@ -26,11 +26,16 @@
             <ul class="navbar-nav ml-auto">
             <li class="nav-item"><a href="{% url 'main_page' %}" class="nav-link active text-white">Home</a></li>
             <li class="nav-item"><a href="#story" class="nav-link active text-white">About Us</a></li>
-			<li class="nav-item"><a href="{% url 'signup' %}" class="nav-link active text-white">Join us</a></li>
+			<li class="nav-item"><a href="{% url 'signup' %}" class="nav-link active text-white">Join Us</a></li>
             {% if request.user.is_authenticated %}
-                <li class="nav-item"><a href="{% url 'commune' %}" class="nav-link active text-white">Communes</a></li>
+                {% if request.user.commune_id %}
+                    <li class="nav-item"><a href="{% url 'commune' %}" class="nav-link active text-white">Communes</a></li>
+                {% endif %}
                 <li class="nav-item"><a href="{% url 'chore' %}" class="nav-link active text-white">Chore</a></li>
-                <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link active text-white">Logout {{ request.user.username }}</a></li>
+                <li class="nav-item"><a href="{% url 'create_commune' %}" class="nav-link active text-white">Create a Commune</a></li>
+                <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link active text-white"> {{ user.username }}    <i class="fa-solid fa-right-from-bracket"></i></a></li>
+            {% else %}
+                    <li class="nav-item"><a href="{% url 'login' %}" class="nav-link active text-white">Log In</a></li>
             {% endif %}
             </ul>
         </div>

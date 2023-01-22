@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from commune_app.models import Chore, Commune, Vote
+from django.contrib.auth import get_user_model
+from django.apps import apps
+
+Chore = apps.get_model('commune_app', 'Chore')
+Commune = apps.get_model('commune_app', 'Commune')
+Vote = apps.get_model('commune_app', 'Vote')
 
 
 def main_page(request):
@@ -24,7 +28,6 @@ def has_voted(user_id, chore_id):
 
 def commune(request):
     commune_id = request.user.commune_id.id
-    # chores = Chore.objects.filter(commune_id=commune_id, passed=False)
     active_chores = Chore.objects.filter(commune_id=commune_id, completed=False, passed=True)
     chores_to_vote_on = Chore.objects.filter(commune_id=commune_id, completed=False, passed=False)
     chores_to_vote_on = [(chore, get_yes_votes_for_chore(chore.id), get_no_votes_for_chore(chore.id),
@@ -81,7 +84,7 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return render(request, 'commune_app/commune.html')
+            return render(request, 'commune_app/index.html')
         else:
             messages.error(request, 'Invalid username or password')
             return redirect('login')
@@ -107,3 +110,27 @@ def vote(request):
 def user_logout(request):
     logout(request)
     return redirect('main_page')
+
+
+def create_commune(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        description = request.POST['description']
+        wallet = request.POST['wallet']
+        new_commune = Commune.create_commune(name=name, description=description, wallet=wallet)
+        new_commune.save()
+        user_id = request.user.id
+        User = get_user_model()
+        user = User.objects.get(id=user_id)
+        user.join_commune(new_commune.id)
+        return redirect('main_page')
+    else:
+        return render(request, 'commune_app/create_commune.html')
+
+
+def do_chore(request):
+    if request.method == 'POST':
+        chore_id = request.POST['chore_id']
+        chore = Chore.get_chore(chore_id)
+        chore.execute_chore(chore_id=chore_id, user_id=request.user.id)
+    return redirect('commune')
