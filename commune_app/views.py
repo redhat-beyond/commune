@@ -24,26 +24,8 @@ def get_no_votes_for_chore(chore_id):
 
 def has_voted(user_id, chore_id):
     return len(Vote.objects.filter(user_id=user_id, chore_id=chore_id)) > 0
-
-
 def commune(request):
-    User = get_user_model()
-    user = User.objects.get(id=request.user.id)
-    commune_id = user.commune_id.id
-    if commune_id is not None:
-        active_chores = Chore.objects.filter(commune_id=commune_id, completed=False, passed=True)
-        chores_to_vote_on = Chore.objects.filter(commune_id=commune_id, completed=False, passed=False)
-        commune = Commune.objects.filter(id=commune_id).first()
-        commune_name = commune.name
-        wallet = commune.wallet
-        description = commune.description
-        context = {'active_chores': active_chores, 'commune_name': commune_name, 'chores_to_vote_on': chores_to_vote_on,
-                   'wallet': wallet, 'description': description}
-        return render(request, 'commune_app/commune.html', context)
-    else:
-        return redirect('main_page')
     commune_id = request.user.commune_id.id
-    # chores = Chore.objects.filter(commune_id=commune_id, passed=False)
     active_chores = Chore.objects.filter(commune_id=commune_id, completed=False, passed=True)
     chores_to_vote_on = Chore.objects.filter(commune_id=commune_id, completed=False, passed=False)
     chores_to_vote_on = [(chore, get_yes_votes_for_chore(chore.id), get_no_votes_for_chore(chore.id),
