@@ -51,4 +51,3 @@ class User(AbstractUser):
 
     def vote(self, chore_id, decision):
         Vote.create_new_vote(voting_user=self.id, voted_chore=chore_id, vote_bool=decision)
-        Vote.save()
